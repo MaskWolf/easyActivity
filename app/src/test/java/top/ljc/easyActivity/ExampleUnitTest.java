@@ -1,4 +1,4 @@
-package top.ljc.easyactivity;
+package top.ljc.easyActivity;
 
 import org.junit.Test;
 

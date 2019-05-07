@@ -1,4 +1,4 @@
-package top.ljc.easyactivity;
+package top.ljc.easyActivity;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

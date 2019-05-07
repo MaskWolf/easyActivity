@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:text="图灵运动挑战赛"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <TextView
+        android:background="@drawable/drawable_default_itemview"
+        android:textColor="@android:color/black"
+        android:maxLines="6"
+        android:ellipsize="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textSize="20sp"
+        android:gravity="left|center"
+        android:text="图灵运动挑战赛是计算机科学与技术学院团总支学生会围绕“三走”为主题策划的，为营造整个学院的体育竞技氛围，旨在通过挑战赛的方式，达到让学生走出寝室，走下网络，走向操场的目的。并能让全院学生达到锻炼身体的效果，促进学生培养一个良好的运动习惯。"
+        android:layout_width="match_parent"
+        android:layout_height="180dp" />
+
+    <Button
+        android:background="@drawable/bt_login"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:text="报名参与"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <Button
+        android:background="@drawable/bt_login"
+
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:text="活动积分排行榜"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>

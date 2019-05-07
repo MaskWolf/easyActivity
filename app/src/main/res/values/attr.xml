@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemView">
+        <attr name="left_text" format="string"/>    //左侧标题文字
+        <attr name="right_text" format="string"/>   //右侧描述文字
+        <attr name="show_right_arrow" format="boolean"/>    //是否显示右侧小箭头
+    </declare-styleable>
+
+    <declare-styleable name="EditItemView">
+        <attr name="head_text" format="string"/>    //左侧标题文字
+        <attr name="edit_hint_text" format="string" />    //右侧编辑框提示文字
+        <attr name="edit_input_type" format="enum">     //右侧编辑框输入数据类型
+            <enum name="Text" value="0" />
+            <enum name="Phone" value="1" />
+            <enum name="Password" value="2" />
+            <enum name="Number" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

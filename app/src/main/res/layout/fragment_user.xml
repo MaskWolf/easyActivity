@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+            <ImageView
+                android:fitsSystemWindows="true"
+                android:id="@+id/top_bgk"
+                android:layout_width="match_parent"
+                android:layout_height="180dp" />
+            <ImageView
+                android:fitsSystemWindows="true"
+                android:id="@+id/iv_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true" />
+            <TextView
+                android:id="@+id/user_signature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/top_bgk"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:text="登陆获取更多内容"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
+        </RelativeLayout>
+        <ScrollView
+            android:layout_below="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <top.ljc.easyActivity.View.ItemView
+                    android:id="@+id/iv_usrename"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="用户名"
+                    app:right_text="LJC"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_sex"
+                    android:layout_below="@+id/iv_usrename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="性别"
+                    app:right_text="男"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_phone"
+                    android:layout_below="@+id/iv_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="手机号"
+                    app:right_text="136****1006"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_qq"
+                    android:layout_below="@+id/iv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="QQ"
+                    app:right_text="未绑定"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_wechat"
+                    android:layout_below="@+id/iv_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="微信"
+                    app:right_text="未绑定"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/iv_about"
+                    android:layout_below="@+id/iv_wechat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="关于我们"
+                    app:right_text=""
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_cache"
+                    android:layout_below="@+id/iv_about"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="清除缓存"
+                    app:right_text="3.2M"
+                    app:show_right_arrow="true" />
+
+                <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/iv_version"
+                    android:layout_below="@+id/iv_cache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:left_text="版本"
+                    app:right_text="1.0.0"
+                    app:show_right_arrow="true" />
+
+                <Button
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/bt_exit"
+                    android:layout_below="@+id/iv_version"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bt_shape"
+                    android:text="退出登录"
+                    android:textSize="28sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="200dp"
+                    android:layout_height="45dp" />
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</FrameLayout>

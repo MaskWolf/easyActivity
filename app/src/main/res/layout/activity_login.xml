@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/rl_msg"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/rl_msg"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:src="@drawable/user"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <EditText
+                android:id="@+id/et_user"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_marginLeft="5dp"
+                android:hint="用户名/手机号"
+                android:layout_width="200dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:src="@drawable/password"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+            <EditText
+                android:id="@+id/et_password"
+                android:singleLine="true"
+                android:inputType="textPassword"
+                android:layout_marginLeft="5dp"
+                android:hint="密码"
+                android:layout_width="200dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rl_other"
+            android:layout_marginTop="4dp"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="注册"
+                android:id="@+id/tv_register"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:text="忘记密码？"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/rl_msg"
+        android:id="@+id/bt_login"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="登录"
+        android:textSize="24sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bt_login"/>
+
+    <RadioGroup
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/bt_login"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:button="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_qq_client" />
+        <RadioButton
+            android:layout_marginLeft="30dp"
+            android:button="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_wechat"/>
+        <RadioButton
+            android:layout_marginLeft="30dp"
+            android:button="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/login_phone"/>
+    </RadioGroup>
+</RelativeLayout>

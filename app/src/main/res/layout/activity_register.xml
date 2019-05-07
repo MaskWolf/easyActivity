@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="100dp"
+    android:orientation="vertical">
+
+    <top.ljc.easyActivity.View.EditItemView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        app:edit_hint_text="请输入用户名"
+        app:edit_input_type="Text"
+        app:head_text="用户名" />
+
+    <top.ljc.easyActivity.View.EditItemView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        app:edit_hint_text="请输入6位以上密码"
+        app:edit_input_type="Password"
+        app:head_text="密码" />
+
+    <top.ljc.easyActivity.View.EditItemView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        app:edit_hint_text="请输入确认密码"
+        app:edit_input_type="Password"
+        app:head_text="确认密码" />
+
+    <top.ljc.easyActivity.View.EditItemView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        app:edit_hint_text="请输手机号"
+        app:edit_input_type="Phone"
+        app:head_text="手机号" />
+
+    <LinearLayout
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+        <top.ljc.easyActivity.View.EditItemView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            app:head_text="验证码"/>
+        <Button
+            android:text="获取验证码"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/bt_login"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <Button
+        android:text="注册"
+        android:textSize="28sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/bt_login"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+</LinearLayout>
