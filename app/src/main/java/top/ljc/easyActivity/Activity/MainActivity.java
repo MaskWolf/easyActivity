@@ -3,6 +3,9 @@ package top.ljc.easyActivity.Activity;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RadioButton;
@@ -12,6 +15,7 @@ import top.ljc.easyActivity.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
+    private Toolbar toolbar;
     private ViewPager vpMain;
     private RadioButton rbHome;
     private RadioButton rbActivity;
@@ -22,7 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // 实现透明状态栏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
         setContentView(R.layout.activity_main);
         findViews();
 
@@ -31,11 +38,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.more){
+
+        }
+        return true;
+    }
+
     private void initData() {
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
     }
 
     private void initView() {
+        setSupportActionBar(toolbar);
         vpMain.setAdapter(myFragmentPagerAdapter);
         vpMain.setCurrentItem(0);
         vpMain.addOnPageChangeListener(this);
@@ -45,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void findViews() {
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
         vpMain = (ViewPager)findViewById( R.id.vp_main );
         rbHome = (RadioButton)findViewById( R.id.rb_home );
         rbActivity = (RadioButton)findViewById( R.id.rb_activity );
