@@ -6,14 +6,28 @@
         <attr name="show_right_arrow" format="boolean"/>    //是否显示右侧小箭头
     </declare-styleable>
 
-    <declare-styleable name="EditItemView">
-        <attr name="head_text" format="string"/>    //左侧标题文字
-        <attr name="edit_hint_text" format="string" />    //右侧编辑框提示文字
-        <attr name="edit_input_type" format="enum">     //右侧编辑框输入数据类型
+    <declare-styleable name="EditTextPlus">
+        <attr name="head_title_text" format="string" />
+        <attr name="head_titile_text_size" format="dimension" />
+        <attr name="head_title_text_color" format="color" />
+        <attr name="edit_hint_text" format="string" />
+        <attr name="edit_text_size" format="dimension" />
+        <attr name="edit_text_color" format="color" />
+        <attr name="edit_input_type" format="enum">
             <enum name="Text" value="0" />
             <enum name="Phone" value="1" />
             <enum name="Password" value="2" />
             <enum name="Number" value="3" />
+        </attr>
+        <attr name="edit_editor_option" format="enum">
+            <enum name="IME_ACTION_NONE" value="0" />
+            <enum name="IME_ACTION_DONE" value="1" />
+            <enum name="IME_ACTION_GO" value="2" />
+            <enum name="IME_ACTION_NEXT" value="3" />
+            <enum name="IME_ACTION_PREVIOUS" value="4" />
+            <enum name="IME_ACTION_SEARCH" value="5" />
+            <enum name="IME_ACTION_SEND" value="6" />
+            <enum name="IME_ACTION_UNSPECIFIED" value="7" />
         </attr>
     </declare-styleable>
 </resources>

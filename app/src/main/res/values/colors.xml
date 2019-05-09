@@ -3,6 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
     <color name="transparent">#00000000</color>
+
+    <color name="EditTextPluswhite">#FFFFFF</color>
+    <color name="EditTextPlusDecoration">#EEEFFF</color>
+    <color name="EditTextPlusDefaultTextColor">#030303</color>
 </resources>

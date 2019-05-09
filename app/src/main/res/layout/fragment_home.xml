@@ -16,7 +16,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <EditText
+                    android:lines="1"
                     android:focusable="false"
+                    android:imeOptions="actionSearch"
                     android:gravity="center|center_vertical"
                     android:hint="搜索活动"
                     android:textColorHint="@drawable/search_textcolor_selector"

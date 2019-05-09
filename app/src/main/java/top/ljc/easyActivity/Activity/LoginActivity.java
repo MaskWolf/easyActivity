@@ -26,6 +26,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
+import top.ljc.easyActivity.View.EditTextPlus;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
@@ -36,8 +37,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private final static int LOGIN = 1;
     private TextView tvRegister;
-    private EditText etUser;
-    private EditText etPassword;
+    private EditTextPlus etUser;
+    private EditTextPlus etPassword;
     private Button btLogin;
 
     private Handler handler = new Handler(){
@@ -66,8 +67,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void findViews() {
-        etUser = (EditText)findViewById( R.id.et_user );
-        etPassword = (EditText)findViewById( R.id.et_password );
+        etUser = (EditTextPlus)findViewById( R.id.et_user );
+        etPassword = (EditTextPlus)findViewById( R.id.et_password );
         btLogin = (Button) findViewById( R.id.bt_login );
         tvRegister = (TextView)findViewById(R.id.tv_register);
 
@@ -87,8 +88,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     private void login() {
-        String username = etUser.getText().toString();
-        String password = etPassword.getText().toString();
+        String username = etUser.getText();
+        String password = etPassword.getText();
         if (username == null|| username.equals("")){
             Toast.makeText(this,"请输入用户名！",Toast.LENGTH_SHORT).show();
             return;

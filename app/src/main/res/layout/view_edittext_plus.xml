@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_head"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="账号" />
+
+    <View
+        android:id="@+id/view_decoration"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/tv_head"
+        android:background="@color/EditTextPlusDecoration" />
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/view_decoration"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:imeOptions="actionSend"
+        android:lines="1"
+        android:textCursorDrawable="@null" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="5dp"
+        android:src="@drawable/icon_delete" />
+
+</LinearLayout>

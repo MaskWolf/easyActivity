@@ -24,34 +24,40 @@
             android:layout_marginRight="10dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:text="登陆界面"
+            android:text="登陆"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </android.support.v7.widget.Toolbar>
-    <EditText
-        android:padding="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/white"
+
+    <top.ljc.easyActivity.View.EditTextPlus
         android:id="@+id/et_user"
-        android:singleLine="true"
-        android:inputType="text"
-        android:textSize="16sp"
-        android:hint="用户名/手机号"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
-    <EditText
-        android:paddingLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/white"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:edit_editor_option="IME_ACTION_NEXT"
+        app:edit_hint_text="请输入用户名/手机号/邮箱"
+        app:edit_input_type="Text"
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="用户名"
+        app:head_title_text_color="@android:color/black" />
+
+    <top.ljc.easyActivity.View.EditTextPlus
         android:id="@+id/et_password"
-        android:singleLine="true"
-        android:inputType="textPassword"
-        android:textSize="16sp"
-        android:hint="密码"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        app:edit_editor_option="IME_ACTION_GO"
+        app:edit_hint_text="请输入密码"
+        app:edit_input_type="Password"
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="密码"
+        app:head_title_text_color="@android:color/black" />
 
     <Button
         android:id="@+id/bt_login"
@@ -76,14 +82,12 @@
             android:text="注册"
             android:id="@+id/tv_register"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_alignParentRight="true"
             android:text="忘记密码"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

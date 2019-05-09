@@ -3,78 +3,120 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="100dp"
     android:orientation="vertical">
 
-    <top.ljc.easyActivity.View.EditItemView
+    <android.support.v7.widget.Toolbar
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ff3097fd"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <ImageView
+            android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/ic_back_white"/>
+        <TextView
+            android:fitsSystemWindows="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="注册"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.Toolbar>
+
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/et_login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        app:edit_editor_option="IME_ACTION_NEXT"
         app:edit_hint_text="请输入用户名"
         app:edit_input_type="Text"
-        app:head_text="用户名" />
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="用户名"
+        app:head_title_text_color="@android:color/black" />
 
-    <top.ljc.easyActivity.View.EditItemView
+    <top.ljc.easyActivity.View.EditTextPlus
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="40dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        app:edit_hint_text="请输入6位以上密码"
+        app:edit_editor_option="IME_ACTION_NEXT"
+        app:edit_hint_text="请输入六位以上密码"
         app:edit_input_type="Password"
-        app:head_text="密码" />
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="密码"
+        app:head_title_text_color="@android:color/black" />
 
-    <top.ljc.easyActivity.View.EditItemView
+    <top.ljc.easyActivity.View.EditTextPlus
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="40dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        app:edit_hint_text="请输入确认密码"
+        app:edit_editor_option="IME_ACTION_NEXT"
+        app:edit_hint_text="请再次输入密码"
         app:edit_input_type="Password"
-        app:head_text="确认密码" />
-
-    <top.ljc.easyActivity.View.EditItemView
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        app:edit_hint_text="请输手机号"
-        app:edit_input_type="Phone"
-        app:head_text="手机号" />
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="确认密码"
+        app:head_title_text_color="@android:color/black" />
 
     <LinearLayout
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
-        <top.ljc.easyActivity.View.EditItemView
+        android:layout_height="wrap_content">
+        <top.ljc.easyActivity.View.EditTextPlus
             android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            app:head_text="验证码"/>
-        <Button
+            android:layout_height="50dp"
+            app:edit_editor_option="IME_ACTION_SEND"
+            app:edit_hint_text="请输入手机号"
+            app:edit_input_type="Phone"
+            app:edit_text_color="@color/colorPrimary"
+            app:head_title_text="手机号"
+            app:head_title_text_color="@android:color/black"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
             android:text="获取验证码"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/bt_login"
-            android:layout_width="100dp"
-            android:layout_height="40dp" />
+            android:textColor="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:edit_editor_option="IME_ACTION_GO"
+        app:edit_hint_text="请输入验证码"
+        app:edit_input_type="Number"
+        app:edit_text_color="@color/colorPrimary"
+        app:head_title_text="验证码"
+        app:head_title_text_color="@android:color/black" />
 
     <Button
         android:text="注册"
-        android:textSize="28sp"
+        android:textSize="16sp"
         android:textColor="@android:color/white"
         android:background="@drawable/bt_login"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="wrap_content" />
 </LinearLayout>
