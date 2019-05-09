@@ -33,7 +33,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="扫一扫"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="创建活动"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -73,7 +73,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="添加管理员"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -93,7 +93,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="帮助与反馈"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
     </LinearLayout>
 

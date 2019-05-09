@@ -68,7 +68,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private void findViews() {
         etUser = (EditText)findViewById( R.id.et_user );
         etPassword = (EditText)findViewById( R.id.et_password );
-        btLogin = (Button)findViewById( R.id.bt_login );
+        btLogin = (Button) findViewById( R.id.bt_login );
         tvRegister = (TextView)findViewById(R.id.tv_register);
 
 
