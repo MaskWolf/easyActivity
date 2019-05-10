@@ -5,31 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:fitsSystemWindows="true"
+    <top.ljc.easyActivity.View.mToolbar
+        android:id="@+id/toolbar_register"
+        app:title="注册"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#ff3097fd"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <ImageView
-            android:layout_gravity="left"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/ic_back_white"/>
-        <TextView
-            android:fitsSystemWindows="true"
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:text="注册"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="?attr/actionBarSize"/>
 
     <top.ljc.easyActivity.View.EditTextPlus
         android:id="@+id/et_login"

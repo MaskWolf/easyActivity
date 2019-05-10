@@ -27,6 +27,7 @@ import okhttp3.Response;
 import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
+import top.ljc.easyActivity.View.mToolbar;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
@@ -36,6 +37,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private Boolean loginStatus = false;
 
     private final static int LOGIN = 1;
+
+    private mToolbar mToolbar;
     private TextView tvRegister;
     private EditTextPlus etUser;
     private EditTextPlus etPassword;
@@ -71,10 +74,20 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         etPassword = (EditTextPlus)findViewById( R.id.et_password );
         btLogin = (Button) findViewById( R.id.bt_login );
         tvRegister = (TextView)findViewById(R.id.tv_register);
+        mToolbar = (mToolbar)findViewById(R.id.toolbar_login);
 
 
         tvRegister.setOnClickListener(this);
         btLogin.setOnClickListener( this );
+        mToolbar.setOnClickBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("loginStauts",loginStatus);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
     }
 
     @Override
