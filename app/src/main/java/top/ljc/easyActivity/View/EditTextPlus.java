@@ -36,7 +36,7 @@ public class EditTextPlus extends FrameLayout {
     private float mHeadTextSize = 13;
     private int mHeadTextColor;
     private String mHeadText;
-    //
+
     private float mEditTextSize = 13;
     private int mEditTextColor;
     private String mEditHintText;

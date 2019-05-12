@@ -2,40 +2,46 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:fitsSystemWindows="true"
-    android:layout_margin="10dp"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RadioGroup
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RadioButton
-            android:text="我参与的"
-            style="@style/tab_style" />
-        <RadioButton
-            android:text="我管理的"
-            android:layout_marginLeft="10dp"
-            style="@style/tab_style" />
-    </RadioGroup>
-
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/activity_swiperefreshlayout"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:id="@+id/swiperefreshlayout_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:id="@+id/activity_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    `           <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:background="@android:color/white"
+                    android:id="@+id/activity_participated"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="参与的活动"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:id="@+id/activity_managing"
+                    android:background="@color/WhiteSmoke"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"
+                    android:text="创建/管理的活动"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:background="@android:color/white"
+                android:id="@+id/recyclerview_activity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

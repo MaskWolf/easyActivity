@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -21,7 +22,7 @@
         app:edit_editor_option="IME_ACTION_NEXT"
         app:edit_hint_text="请输入用户名"
         app:edit_input_type="Text"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="用户名"
         app:head_title_text_color="@android:color/black" />
 
@@ -34,7 +35,7 @@
         app:edit_editor_option="IME_ACTION_NEXT"
         app:edit_hint_text="请输入六位以上密码"
         app:edit_input_type="Password"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="密码"
         app:head_title_text_color="@android:color/black" />
 
@@ -47,7 +48,7 @@
         app:edit_editor_option="IME_ACTION_NEXT"
         app:edit_hint_text="请再次输入密码"
         app:edit_input_type="Password"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="确认密码"
         app:head_title_text_color="@android:color/black" />
 
@@ -64,7 +65,7 @@
             app:edit_editor_option="IME_ACTION_SEND"
             app:edit_hint_text="请输入手机号"
             app:edit_input_type="Phone"
-            app:edit_text_color="@color/colorPrimary"
+            app:edit_text_color="@android:color/black"
             app:head_title_text="手机号"
             app:head_title_text_color="@android:color/black"/>
         <TextView
@@ -85,7 +86,7 @@
         app:edit_editor_option="IME_ACTION_GO"
         app:edit_hint_text="请输入验证码"
         app:edit_input_type="Number"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="验证码"
         app:head_title_text_color="@android:color/black" />
 

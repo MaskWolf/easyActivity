@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/WhiteSmoke"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -11,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#ff3097fd"
+        android:background="@color/DoderBlue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
         <TextView
@@ -58,15 +59,13 @@
             style="@style/bottom_tab_style"
             android:id="@+id/rb_activity"
             android:text="活动"
-            android:drawableTop="@drawable/rb_activity_selector"
-            />
+            android:drawableTop="@drawable/rb_activity_selector" />
 
         <RadioButton
             style="@style/bottom_tab_style"
             android:id="@+id/rb_user"
             android:text="用户"
-            android:drawableTop="@drawable/rb_user_selector"
-            />
+            android:drawableTop="@drawable/rb_user_selector" />
 
     </RadioGroup>
 

@@ -8,4 +8,7 @@
     <color name="EditTextPluswhite">#FFFFFF</color>
     <color name="EditTextPlusDecoration">#EEEFFF</color>
     <color name="EditTextPlusDefaultTextColor">#030303</color>
+    <color name="LightCyan">#E1FFFF</color>
+    <color name="DoderBlue">#ff3097fd</color>
+    <color name="WhiteSmoke">#F5F5F5</color>
 </resources>

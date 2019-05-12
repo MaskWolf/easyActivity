@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,7 +23,7 @@
         app:edit_editor_option="IME_ACTION_NEXT"
         app:edit_hint_text="请输入用户名/手机号/邮箱"
         app:edit_input_type="Text"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="用户名"
         app:head_title_text_color="@android:color/black" />
 
@@ -36,7 +37,7 @@
         app:edit_editor_option="IME_ACTION_GO"
         app:edit_hint_text="请输入密码"
         app:edit_input_type="Password"
-        app:edit_text_color="@color/colorPrimary"
+        app:edit_text_color="@android:color/black"
         app:head_title_text="密码"
         app:head_title_text_color="@android:color/black" />
 

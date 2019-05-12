@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,8 @@ public class ActivityFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<ActivityItem> activities;
     private ActivityListAdapter activityAdapter;
+    private TextView participatedActivity;
+    private TextView managingActivity;
 
     private Handler handler = new Handler(){
         @Override
@@ -58,13 +61,29 @@ public class ActivityFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        recyclerView = (RecyclerView)view.findViewById(R.id.activity_recyclerview);
-        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.activity_swiperefreshlayout);
+        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerview_activity);
+        swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefreshlayout_activity);
+        participatedActivity = (TextView)view.findViewById(R.id.activity_participated);
+        managingActivity = (TextView)view.findViewById(R.id.activity_managing);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
+            }
+        });
+        participatedActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                participatedActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
+                managingActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
+            }
+        });
+        managingActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                participatedActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
+                managingActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
             }
         });
     }

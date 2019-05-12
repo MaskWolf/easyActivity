@@ -120,7 +120,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                             .add("uPassword",password)
                             .build();
                     Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS+"/loginServlet")
+                            .url(SERVER_ADDRESS+"/user/login")
                             .post(requestBody)
                             .build();
                     okHttpClient.newCall(request).enqueue(new Callback() {
