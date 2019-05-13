@@ -45,4 +45,5 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation("com.squareup.okhttp3:okhttp:3.14.1")
     implementation 'com.squareup.okio:okio:2.2.2'
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 }

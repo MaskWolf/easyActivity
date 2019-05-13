@@ -4,10 +4,6 @@ import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-/**
- * Created by 请叫我张懂 on 2017/11/12.
- */
-
 public class keyboardutils {
     /**
      * 打卡软键盘

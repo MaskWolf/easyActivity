@@ -16,11 +16,15 @@ public class mToolbar extends LinearLayout {
 
     private ImageView ivBack;
     private TextView tvTitle;
+    private TextView tvRight;
+    private Boolean isShowRightText;
     private OnClickListener onClickBackListener;
+    private OnClickListener onClickRightListener;
 
     private void findViews() {
         ivBack = (ImageView)findViewById( R.id.iv_back );
         tvTitle = (TextView)findViewById( R.id.tv_title );
+        tvRight = (TextView)findViewById(R.id.tv_right);
     }
 
     public mToolbar(Context context, @Nullable AttributeSet attrs) {
@@ -30,6 +34,16 @@ public class mToolbar extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.mToolbar);
         //设置标题文字
         tvTitle.setText(ta.getString(R.styleable.mToolbar_title));
+        //设置是否展示右侧文字
+        isShowRightText = ta.getBoolean(R.styleable.mToolbar_show_right,false);
+        if (isShowRightText){
+            tvRight.setVisibility(View.VISIBLE);
+            //设置右侧文字
+            tvRight.setText(ta.getString(R.styleable.mToolbar_right));
+        }else {
+            tvRight.setVisibility(View.GONE);
+        }
+
         ta.recycle();
 
         ivBack.setOnClickListener(new OnClickListener() {
@@ -38,6 +52,21 @@ public class mToolbar extends LinearLayout {
                 onClickBackListener.onClick(v);
             }
         });
+
+        tvRight.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickRightListener.onClick(v);
+            }
+        });
+    }
+
+    /**
+     * 设置右侧文字的点击事件的监听并对外暴露
+     * @param onClickRightListener
+     */
+    public void setOnClickRightListener(OnClickListener onClickRightListener) {
+        this.onClickRightListener = onClickRightListener;
     }
 
     /**

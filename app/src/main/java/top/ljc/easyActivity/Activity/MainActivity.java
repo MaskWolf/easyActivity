@@ -1,6 +1,7 @@
 package top.ljc.easyActivity.Activity;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_2:
                 mPopupWindow.dismiss();
                 Toast.makeText(this, tv_2.getText(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,CreateActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_3:
                 mPopupWindow.dismiss();

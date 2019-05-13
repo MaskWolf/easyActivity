@@ -2,13 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:background="@color/WhiteSmoke"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <top.ljc.easyActivity.View.mToolbar
-        android:id="@+id/toolbar_register"
-        app:title="注册"
+        android:id="@+id/toolbar_create"
+        app:title="创建活动"
+        app:show_right="true"
+        app:right="下一步"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
@@ -20,17 +23,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <top.ljc.easyActivity.View.EditTextPlus
-                android:id="@+id/et_login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 app:edit_editor_option="IME_ACTION_NEXT"
-                app:edit_hint_text="请输入用户名"
+                app:edit_hint_text="请输入活动名称"
                 app:edit_input_type="Text"
                 app:edit_text_color="@android:color/black"
-                app:head_title_text="用户名"
+                app:head_title_text="活动名称"
                 app:head_title_text_color="@android:color/black" />
 
             <top.ljc.easyActivity.View.EditTextPlus
@@ -40,10 +42,10 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 app:edit_editor_option="IME_ACTION_NEXT"
-                app:edit_hint_text="请输入六位以上密码"
-                app:edit_input_type="Password"
+                app:edit_hint_text="请输入活动举办地点"
+                app:edit_input_type="Text"
                 app:edit_text_color="@android:color/black"
-                app:head_title_text="密码"
+                app:head_title_text="活动地点"
                 app:head_title_text_color="@android:color/black" />
 
             <top.ljc.easyActivity.View.EditTextPlus
@@ -53,60 +55,61 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 app:edit_editor_option="IME_ACTION_NEXT"
-                app:edit_hint_text="请再次输入密码"
-                app:edit_input_type="Password"
+                app:edit_hint_text="一句话描述该活动"
+                app:edit_input_type="Text"
                 app:edit_text_color="@android:color/black"
-                app:head_title_text="确认密码"
+                app:head_title_text="活动摘要"
                 app:head_title_text_color="@android:color/black" />
 
             <LinearLayout
+                android:fitsSystemWindows="true"
+                android:background="@drawable/drawable_default_edittext_plus"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <top.ljc.easyActivity.View.EditTextPlus
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    app:edit_editor_option="IME_ACTION_SEND"
-                    app:edit_hint_text="请输入手机号"
-                    app:edit_input_type="Phone"
-                    app:edit_text_color="@android:color/black"
-                    app:head_title_text="手机号"
-                    app:head_title_text_color="@android:color/black"/>
+                android:layout_height="50dp">
                 <TextView
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:text="获取验证码"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:gravity="center|left"
+                    android:text="活动截止日期"
+                    android:textColor="@android:color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
-            <top.ljc.easyActivity.View.EditTextPlus
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+            <LinearLayout
+                android:fitsSystemWindows="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/drawable_default_edittext_plus"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                app:edit_editor_option="IME_ACTION_GO"
-                app:edit_hint_text="请输入验证码"
-                app:edit_input_type="Number"
-                app:edit_text_color="@android:color/black"
-                app:head_title_text="验证码"
-                app:head_title_text_color="@android:color/black" />
-
-            <Button
-                android:text="注册"
-                android:textSize="16sp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bt_login"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="200dp">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:text="活动简介"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/EditTextPlusDecoration" />
+                <EditText
+                    android:imeOptions="actionSend"
+                    android:hint="用一段话简介该活动"
+                    android:textSize="15sp"
+                    android:background="@android:color/transparent"
+                    android:textCursorDrawable="@null"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
