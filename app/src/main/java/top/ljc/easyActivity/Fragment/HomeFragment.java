@@ -24,9 +24,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import top.ljc.easyActivity.Activity.DetailsActivity;
-import top.ljc.easyActivity.Adapter.ActivityListAdapter;
+import top.ljc.easyActivity.Adapter.ActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
-import top.ljc.easyActivity.Interface.OnRecyclerItemClickListener;
 import top.ljc.easyActivity.R;
 
 import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
@@ -38,7 +37,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private ArrayList<ActivityItem> activities;
-    private ActivityListAdapter activityAdapter;
+    private ActivityItemAdapter activityAdapter;
 
     private Handler handler = new Handler(){
         @Override
@@ -105,7 +104,7 @@ public class HomeFragment extends Fragment {
             }
         }).start();
 
-        activityAdapter = new ActivityListAdapter(activities);
+        activityAdapter = new ActivityItemAdapter(activities);
     }
 
     private void parseJSONWithJSONObject(String jsonData){
@@ -129,9 +128,9 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(activityAdapter);
-        activityAdapter.setOnRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+        activityAdapter.setOnRecyclerItemClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(View view, int postion) {
+            public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
                 startActivity(intent);
             }

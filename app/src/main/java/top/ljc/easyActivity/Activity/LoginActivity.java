@@ -29,7 +29,6 @@ import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.mToolbar;
 
-import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
@@ -126,7 +125,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                     okHttpClient.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
-                            Log.e(TAG, "onFailure: " + e.getMessage());
+
                         }
 
                         @Override

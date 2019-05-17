@@ -15,18 +15,21 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import top.ljc.easyActivity.Data.ActivityItem;
-import top.ljc.easyActivity.Interface.OnRecyclerItemClickListener;
 import top.ljc.easyActivity.R;
 
-public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ViewHolder> {
+public class ActivityItemAdapter extends RecyclerView.Adapter<ActivityItemAdapter.ViewHolder> {
 
     private Context context;
 
     private List<ActivityItem> activityList;
 
-    private OnRecyclerItemClickListener onItemClickListener;
+    private View.OnClickListener OnRecyclerItemClickListener;
 
-    public ActivityListAdapter(List<ActivityItem> activityList) {
+    public void setOnRecyclerItemClickListener(View.OnClickListener onRecyclerItemClickListener) {
+        OnRecyclerItemClickListener = onRecyclerItemClickListener;
+    }
+
+    public ActivityItemAdapter(List<ActivityItem> activityList) {
         this.activityList = activityList;
     }
 
@@ -37,7 +40,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             context = viewGroup.getContext();
         }
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_activity, viewGroup,false);
-        ViewHolder holder = new ViewHolder(view, onItemClickListener);
+        ViewHolder holder = new ViewHolder(view, OnRecyclerItemClickListener);
         return holder;
     }
 
@@ -58,31 +61,26 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         return activityList.size();
     }
 
-    public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView activityImage;
         TextView activityTitle;
         TextView activityDesc;
-        OnRecyclerItemClickListener onItemClickListener;// 声明自定义的接口
+        View.OnClickListener OnRecyclerItemClickListener;
 
-        public ViewHolder(@NonNull View itemView, OnRecyclerItemClickListener onItemClickListener) {
+        public ViewHolder(@NonNull View itemView, View.OnClickListener onItemClickListener) {
             super(itemView);
-            this.onItemClickListener = onItemClickListener;
-            itemView.setOnClickListener(this);
+            this.OnRecyclerItemClickListener = onItemClickListener;
             activityImage = (ImageView)itemView.findViewById(R.id.activity_image);
             activityTitle = (TextView)itemView.findViewById(R.id.activity_title);
             activityDesc = (TextView) itemView.findViewById(R.id.activity_desc);
-        }
 
-        @SuppressWarnings({"deprecation"})
-        @Override
-        public void onClick(View v) {
-            if (onItemClickListener!=null){
-                onItemClickListener.onItemClick(v, getPosition());
-            }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onClick(v);
+                }
+            });
         }
     }
 }

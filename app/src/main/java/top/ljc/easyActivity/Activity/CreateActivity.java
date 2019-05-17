@@ -1,6 +1,7 @@
 package top.ljc.easyActivity.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,10 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+    }
+
+    private void findViews() {
         mToolbar = (mToolbar) findViewById(R.id.toolbar_create);
 
         mToolbar.setOnClickBackListener(new View.OnClickListener() {
@@ -43,10 +48,9 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"下一步",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,TableActivity.class);
+                startActivity(intent);
             }
         });
-    }
-
-    private void findViews() {
     }
 }

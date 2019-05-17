@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import top.ljc.easyActivity.Adapter.ActivityListAdapter;
+import top.ljc.easyActivity.Adapter.ActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.R;
 
@@ -27,7 +27,7 @@ public class ActivityFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private ArrayList<ActivityItem> activities;
-    private ActivityListAdapter activityAdapter;
+    private ActivityItemAdapter activityAdapter;
     private TextView participatedActivity;
     private TextView managingActivity;
 
@@ -102,7 +102,7 @@ public class ActivityFragment extends Fragment {
     public void initData(){
         activities = new ArrayList<>();
         activities.add(new ActivityItem("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555952443076&di=28ca061d05d6f67d64ed57de35b3279a&imgtype=0&src=http%3A%2F%2Fnews.mydrivers.com%2FImg%2F20120217%2F2012021709492293.jpg","图灵运动挑战赛","计算机科学与技术学院主办“三走”系列活动"));
-        activityAdapter = new ActivityListAdapter(activities);
+        activityAdapter = new ActivityItemAdapter(activities);
     }
 
     public void initViews(){

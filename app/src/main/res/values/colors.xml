@@ -11,4 +11,7 @@
     <color name="LightCyan">#E1FFFF</color>
     <color name="DoderBlue">#ff3097fd</color>
     <color name="WhiteSmoke">#F5F5F5</color>
+
+    <color name="backgroundColor">#E8E8E0</color>
+    <color name="backgroundColorPress">#DBDBD3</color>
 </resources>
