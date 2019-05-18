@@ -48,4 +48,5 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'cn.yipianfengye.android:zxing-library:2.2'
 }

@@ -46,7 +46,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private ItemView ivSex;
     private ItemView ivPhone;
     private ItemView ivQq;
-    private ItemView ivWechat;
     private ItemView ivAbout;
     private ItemView ivCache;
     private ItemView ivVersion;
@@ -80,7 +79,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         ivSex = (ItemView)view.findViewById( R.id.iv_sex );
         ivPhone = (ItemView)view.findViewById( R.id.iv_phone );
         ivQq = (ItemView)view.findViewById( R.id.iv_qq );
-        ivWechat = (ItemView)view.findViewById( R.id.iv_wechat );
         ivAbout = (ItemView)view.findViewById( R.id.iv_about );
         ivCache = (ItemView)view.findViewById( R.id.iv_cache );
         ivVersion = (ItemView)view.findViewById( R.id.iv_version );
@@ -163,14 +161,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             ivSex.setVisibility(View.VISIBLE);
             ivPhone.setVisibility(View.VISIBLE);
             ivQq.setVisibility(View.VISIBLE);
-            ivWechat.setVisibility(View.VISIBLE);
             btExit.setVisibility(View.VISIBLE);
         }else {
             ivUsrename.setVisibility(View.GONE);
             ivSex.setVisibility(View.GONE);
             ivPhone.setVisibility(View.GONE);
             ivQq.setVisibility(View.GONE);
-            ivWechat.setVisibility(View.GONE);
             btExit.setVisibility(View.GONE);
         }
     }
