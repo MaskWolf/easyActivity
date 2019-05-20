@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,10 +79,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         mToolbar.setOnClickBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("loginStauts",loginStatus);
-                setResult(RESULT_OK,intent);
-                finish();
+                BackPreActivity();
             }
         });
     }
@@ -159,10 +154,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 user.setSignature(jsonObject.getString("uSignature"));
                 user.setSex(jsonObject.getBoolean("uSex"));
 
-                Intent intent = new Intent();
-                intent.putExtra("loginStatus",loginStatus);
-                setResult(RESULT_OK,intent);
-                finish();
+                BackPreActivity();
             }else{
                 Toast.makeText(this,loginMessage,Toast.LENGTH_SHORT).show();
                 return;
@@ -174,9 +166,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onBackPressed() {
+        BackPreActivity();
+    }
+
+    /**
+     * 返回上一个活动
+     */
+    private void BackPreActivity() {
         Intent intent = new Intent();
-        intent.putExtra("loginStauts",loginStatus);
-        setResult(RESULT_OK,intent);
+        intent.putExtra("loginStatus", loginStatus);
+        setResult(RESULT_OK, intent);
         finish();
     }
 }

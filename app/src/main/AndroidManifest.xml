@@ -37,28 +37,23 @@
 
         <activity
             android:name=".Activity.LoginActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".Activity.RegisterActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".Activity.DetailsActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
             android:windowSoftInputMode="adjustPan"
             android:name=".Activity.CreateActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".Activity.TableActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
     </application>

@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
                 OkHttpClient okHttpClient = new OkHttpClient();
                 try{
                     Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS + "/getActivityServlet")
+                            .url(SERVER_ADDRESS + "/activity/getActivity")
                             .build();
                     Response response = okHttpClient.newCall(request).execute();
                     String jsonData = response.body().string();
