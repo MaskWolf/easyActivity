@@ -15,11 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import top.ljc.easyActivity.Adapter.ActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.R;
+
+import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class ActivityFragment extends Fragment {
     private static final int UPDATE_ACTIVITYLIST = 1;
@@ -36,7 +44,8 @@ public class ActivityFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case UPDATE_ACTIVITYLIST:
-                    refreshActivityData();
+                    activityAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                     break;
                 default:
                     break;
@@ -77,6 +86,38 @@ public class ActivityFragment extends Fragment {
             public void onClick(View v) {
                 participatedActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
                 managingActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
+                activities.clear();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        try{
+                            Request request = new Request.Builder()
+                                    .url(SERVER_ADDRESS + "/activity/participation?uName=zhangsan")
+                                    .build();
+                            Response response = okHttpClient.newCall(request).execute();
+                            String jsonData = response.body().string();
+                            try{
+                                JSONObject jsonObject = new JSONObject(jsonData);
+                                JSONArray jsonArray = jsonObject.getJSONArray("participationData");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
+                                    ActivityItem activityItem = new ActivityItem();
+                                    activityItem.setTitle(jsonObjectItem.getString("aName"));
+                                    activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
+                                    activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
+                                    activities.add(activityItem);
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                swipeRefreshLayout.setRefreshing(true);
+                handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
             }
         });
         managingActivity.setOnClickListener(new View.OnClickListener() {
@@ -84,25 +125,76 @@ public class ActivityFragment extends Fragment {
             public void onClick(View v) {
                 participatedActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
                 managingActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
+                activities.clear();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        try{
+                            Request request = new Request.Builder()
+                                    .url(SERVER_ADDRESS + "/activity/manage?uName=zhangsan")
+                                    .build();
+                            Response response = okHttpClient.newCall(request).execute();
+                            String jsonData = response.body().string();
+                            try{
+                                JSONObject jsonObject = new JSONObject(jsonData);
+                                JSONArray jsonArray = jsonObject.getJSONArray("manageData");
+                                for (int i=0;i<jsonArray.length();i++){
+                                    JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
+                                    ActivityItem activityItem = new ActivityItem();
+                                    activityItem.setTitle(jsonObjectItem.getString("aName"));
+                                    activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
+                                    activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
+                                    activities.add(activityItem);
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                swipeRefreshLayout.setRefreshing(true);
+                handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
             }
         });
     }
 
-    /**
-     * 刷新活动列表数据
-     */
-    private void refreshActivityData() {
-        activities.clear();
-        activities.add(new ActivityItem("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555952443076&di=28ca061d05d6f67d64ed57de35b3279a&imgtype=0&src=http%3A%2F%2Fnews.mydrivers.com%2FImg%2F20120217%2F2012021709492293.jpg","新图灵运动挑战赛","计算机科学与技术学院主办“三走”系列活动"));
-
-        activityAdapter.notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
     public void initData(){
         activities = new ArrayList<>();
-        activities.add(new ActivityItem("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555952443076&di=28ca061d05d6f67d64ed57de35b3279a&imgtype=0&src=http%3A%2F%2Fnews.mydrivers.com%2FImg%2F20120217%2F2012021709492293.jpg","图灵运动挑战赛","计算机科学与技术学院主办“三走”系列活动"));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient okHttpClient = new OkHttpClient();
+                try{
+                    Request request = new Request.Builder()
+                            .url(SERVER_ADDRESS + "/activity/participation?uName=zhangsan")
+                            .build();
+                    Response response = okHttpClient.newCall(request).execute();
+                    String jsonData = response.body().string();
+                    try{
+                        JSONObject jsonObject = new JSONObject(jsonData);
+                        JSONArray jsonArray = jsonObject.getJSONArray("participationData");
+                        for (int i=0;i<jsonArray.length();i++){
+                            JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
+                            ActivityItem activityItem = new ActivityItem();
+                            activityItem.setTitle(jsonObjectItem.getString("aName"));
+                            activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
+                            activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
+                            activities.add(activityItem);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         activityAdapter = new ActivityItemAdapter(activities);
+        swipeRefreshLayout.setRefreshing(true);
+        handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
     }
 
     public void initViews(){

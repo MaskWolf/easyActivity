@@ -44,7 +44,8 @@ public class HomeFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case UPDATE_ACTIVITYLIST:
-                    refreshActivityData();
+                    activityAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                     break;
                 default:
                     break;
@@ -68,32 +69,55 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public void findViews(View view){
+    private void findViews(View view){
         recyclerView = (RecyclerView)view.findViewById(R.id.home_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.home_swiperefreshlayout);
     }
 
-    /**
-     * 刷新活动列表数据
-     */
-    private void refreshActivityData() {
-        activities.clear();
-        activities.add(new ActivityItem("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555952443076&di=28ca061d05d6f67d64ed57de35b3279a&imgtype=0&src=http%3A%2F%2Fnews.mydrivers.com%2FImg%2F20120217%2F2012021709492293.jpg","新图灵运动挑战赛","计算机科学与技术学院主办“三走”系列活动"));
+    private void initViews(){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(activityAdapter);
 
-        activityAdapter.notifyDataSetChanged();
-        swipeRefreshLayout.setRefreshing(false);
+        activityAdapter.setOnRecyclerItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                activities.clear();
+                getAllActivities();
+                handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
+            }
+        });
     }
 
-    public void initData(){
+    private void initData(){
         activities = new ArrayList<>();
 
+        swipeRefreshLayout.setRefreshing(true);
+        getAllActivities();
+        activityAdapter = new ActivityItemAdapter(activities);
+        handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
+
+    }
+
+    /**
+     * 向服务器端请求所有活动的json数据
+     */
+    private void getAllActivities() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient okHttpClient = new OkHttpClient();
                 try{
                     Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS + "/activity/getActivity")
+                            .url(SERVER_ADDRESS + "/activity/getAllActivity")
                             .build();
                     Response response = okHttpClient.newCall(request).execute();
                     String jsonData = response.body().string();
@@ -103,10 +127,12 @@ public class HomeFragment extends Fragment {
                 }
             }
         }).start();
-
-        activityAdapter = new ActivityItemAdapter(activities);
     }
 
+    /**
+     * 解析服务器端返回的所有活动的json数据并添加到ArrayList集合中
+     * @param jsonData
+     */
     private void parseJSONWithJSONObject(String jsonData){
         try{
             JSONObject jsonObject = new JSONObject(jsonData);
@@ -122,25 +148,5 @@ public class HomeFragment extends Fragment {
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void initViews(){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(activityAdapter);
-        activityAdapter.setOnRecyclerItemClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
-            }
-        });
     }
 }

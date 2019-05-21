@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WhiteSmoke">
+
+    <top.ljc.easyActivity.View.mToolbar
+        android:id="@+id/toolbar_manage"
+        app:title="管理活动"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:text="图灵运动挑战赛"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/qr_code"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:text="开启/关闭活动报名"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
+                <com.suke.widget.SwitchButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/switch_button_join"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:text="开启/关闭积分排行榜"
+                    android:textColor="@android:color/black"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp" />
+                <com.suke.widget.SwitchButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/switch_button_rank"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/drawable_default_edittext_plus"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <TextView
+            android:text="单击查看管理员信息，长按删除管理员"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:fitsSystemWindows="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/drawable_default_edittext_plus"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="活动公告"
+            android:textColor="@android:color/black"
+            android:layout_width="70dp"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/EditTextPlusDecoration" />
+        <EditText
+            android:imeOptions="actionSend"
+            android:hint="可在此处发布活动公告信息，参与者点击进入该活动将会立即得知此公告信息"
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            android:textCursorDrawable="@null"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <Button
+        android:text="编辑活动公告"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:background="@drawable/bt_login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

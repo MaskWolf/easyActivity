@@ -56,6 +56,11 @@
             android:name=".Activity.TableActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".Activity.ManageActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

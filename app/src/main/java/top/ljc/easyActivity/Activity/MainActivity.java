@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_3:
                 mPopupWindow.dismiss();
                 Toast.makeText(this, tv_3.getText(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(this,ManageActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_4:
                 mPopupWindow.dismiss();
@@ -250,11 +252,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        *//**
+        super.onActivityResult(requestCode, resultCode, data);
+        /**
          * 处理二维码扫描结果
-         *//*
+         */
         if (requestCode == REQUEST_CODE) {
             //处理扫描结果（在界面上显示）
             if (null != data) {
@@ -270,5 +273,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
-    }*/
+    }
 }

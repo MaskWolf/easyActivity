@@ -49,4 +49,5 @@ dependencies {
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
+    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
 }
