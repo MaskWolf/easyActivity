@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -43,5 +43,13 @@
                 android:layout_height="match_parent"/>
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_login_false"
+        android:layout_centerInParent="true"
+        android:text="请先登陆账号！"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -18,13 +18,19 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import top.ljc.easyActivity.Adapter.ActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
+import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
 
 import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
@@ -38,12 +44,20 @@ public class ActivityFragment extends Fragment {
     private ActivityItemAdapter activityAdapter;
     private TextView participatedActivity;
     private TextView managingActivity;
+    private TextView tvLoginFalse;
+
+    private User user;
 
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case UPDATE_ACTIVITYLIST:
+                    if (activities.size()<=0){
+                        tvLoginFalse.setVisibility(View.VISIBLE);
+                    }else {
+                        tvLoginFalse.setVisibility(View.GONE);
+                    }
                     activityAdapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                     break;
@@ -74,10 +88,20 @@ public class ActivityFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swiperefreshlayout_activity);
         participatedActivity = (TextView)view.findViewById(R.id.activity_participated);
         managingActivity = (TextView)view.findViewById(R.id.activity_managing);
+        tvLoginFalse = (TextView)view.findViewById(R.id.tv_login_false);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                activities.clear();
+                if (participatedActivity.getBackground().equals(getResources().getColor(R.color.smssdk_white))){
+                    //当前处于参与的活动界面
+                    getActivityList(-1);
+                }else {
+                    //当前处于创建或管理的活动界面
+                    getActivityList(0);
+                    getActivityList(1);
+                }
                 handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
             }
         });
@@ -87,36 +111,8 @@ public class ActivityFragment extends Fragment {
                 participatedActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
                 managingActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
                 activities.clear();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        try{
-                            Request request = new Request.Builder()
-                                    .url(SERVER_ADDRESS + "/activity/participation?uName=zhangsan")
-                                    .build();
-                            Response response = okHttpClient.newCall(request).execute();
-                            String jsonData = response.body().string();
-                            try{
-                                JSONObject jsonObject = new JSONObject(jsonData);
-                                JSONArray jsonArray = jsonObject.getJSONArray("participationData");
-                                for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
-                                    ActivityItem activityItem = new ActivityItem();
-                                    activityItem.setTitle(jsonObjectItem.getString("aName"));
-                                    activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
-                                    activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
-                                    activities.add(activityItem);
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
                 swipeRefreshLayout.setRefreshing(true);
+                getActivityList(-1);
                 handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
             }
         });
@@ -126,80 +122,82 @@ public class ActivityFragment extends Fragment {
                 participatedActivity.setBackgroundColor(getResources().getColor(R.color.WhiteSmoke));
                 managingActivity.setBackgroundColor(getResources().getColor(R.color.smssdk_white));
                 activities.clear();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        OkHttpClient okHttpClient = new OkHttpClient();
-                        try{
-                            Request request = new Request.Builder()
-                                    .url(SERVER_ADDRESS + "/activity/manage?uName=zhangsan")
-                                    .build();
-                            Response response = okHttpClient.newCall(request).execute();
-                            String jsonData = response.body().string();
-                            try{
-                                JSONObject jsonObject = new JSONObject(jsonData);
-                                JSONArray jsonArray = jsonObject.getJSONArray("manageData");
-                                for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
-                                    ActivityItem activityItem = new ActivityItem();
-                                    activityItem.setTitle(jsonObjectItem.getString("aName"));
-                                    activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
-                                    activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
-                                    activities.add(activityItem);
-                                }
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
                 swipeRefreshLayout.setRefreshing(true);
+                getActivityList(0);
+                getActivityList(1);
                 handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
             }
         });
     }
 
     public void initData(){
+        user = new User();
         activities = new ArrayList<>();
+        activityAdapter = new ActivityItemAdapter(activities);
+        swipeRefreshLayout.setRefreshing(true);
+        getActivityList(-1);
+        handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
+    }
+
+    /**
+     * 获取用户参与过的活动列表
+     */
+    private void getActivityList(int status) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpClient okHttpClient = new OkHttpClient();
                 try{
-                    Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS + "/activity/participation?uName=zhangsan")
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("uName", user.getUname())
+                            .add("aStatus",status+"")
                             .build();
-                    Response response = okHttpClient.newCall(request).execute();
-                    String jsonData = response.body().string();
-                    try{
-                        JSONObject jsonObject = new JSONObject(jsonData);
-                        JSONArray jsonArray = jsonObject.getJSONArray("participationData");
-                        for (int i=0;i<jsonArray.length();i++){
-                            JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
-                            ActivityItem activityItem = new ActivityItem();
-                            activityItem.setTitle(jsonObjectItem.getString("aName"));
-                            activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
-                            activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
-                            activities.add(activityItem);
+                    Request request = new Request.Builder()
+                            .url(SERVER_ADDRESS+"/activity/getActivity")
+                            .post(requestBody)
+                            .build();
+                    okHttpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+
                         }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            parseJSONWithJSONObject(response.body().string());
+                        }
+                    });
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }).start();
-        activityAdapter = new ActivityItemAdapter(activities);
-        swipeRefreshLayout.setRefreshing(true);
-        handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
     }
 
     public void initViews(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(activityAdapter);
+    }
+
+    /**
+     * 解析服务器端返回的JSON数据并添加到ArrayList集合中
+     * @param jsonData
+     */
+    private void parseJSONWithJSONObject(String jsonData){
+        try{
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONArray jsonArray = jsonObject.getJSONArray("participationData");
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
+                ActivityItem activityItem = new ActivityItem();
+                activityItem.setTitle(jsonObjectItem.getString("aName"));
+                activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
+                activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
+                activities.add(activityItem);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

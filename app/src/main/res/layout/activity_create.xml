@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <top.ljc.easyActivity.View.EditTextPlus
+                android:id="@+id/etp_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -36,6 +37,7 @@
                 app:head_title_text_color="@android:color/black" />
 
             <top.ljc.easyActivity.View.EditTextPlus
+                android:id="@+id/etp_location"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -49,6 +51,7 @@
                 app:head_title_text_color="@android:color/black" />
 
             <top.ljc.easyActivity.View.EditTextPlus
+                android:id="@+id/etp_abstract"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -101,6 +104,7 @@
                     android:layout_marginRight="5dp"
                     android:background="@color/EditTextPlusDecoration" />
                 <EditText
+                    android:id="@+id/et_description"
                     android:imeOptions="actionSend"
                     android:hint="用一段话简介该活动"
                     android:textSize="15sp"

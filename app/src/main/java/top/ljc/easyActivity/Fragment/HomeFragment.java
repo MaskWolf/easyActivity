@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
     private Context context;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private TextView ivNoNetwork;
     private ArrayList<ActivityItem> activities;
     private ActivityItemAdapter activityAdapter;
 
@@ -44,6 +46,12 @@ public class HomeFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case UPDATE_ACTIVITYLIST:
+                    //网络不畅时显示提示文本
+                    if (activities.size()<=0){
+                        ivNoNetwork.setVisibility(View.VISIBLE);
+                    }else {
+                        ivNoNetwork.setVisibility(View.GONE);
+                    }
                     activityAdapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                     break;
@@ -72,6 +80,7 @@ public class HomeFragment extends Fragment {
     private void findViews(View view){
         recyclerView = (RecyclerView)view.findViewById(R.id.home_recyclerview);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.home_swiperefreshlayout);
+        ivNoNetwork = (TextView)view.findViewById(R.id.tv_no_network);
     }
 
     private void initViews(){
@@ -99,12 +108,10 @@ public class HomeFragment extends Fragment {
 
     private void initData(){
         activities = new ArrayList<>();
-
         swipeRefreshLayout.setRefreshing(true);
         getAllActivities();
         activityAdapter = new ActivityItemAdapter(activities);
         handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
-
     }
 
     /**

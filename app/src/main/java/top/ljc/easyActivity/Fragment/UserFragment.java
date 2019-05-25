@@ -111,30 +111,51 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v == btExit){
-            setUserInfoDisplay(false);
-            loginStatus = false;
-            //加载圆形头像
-            Glide.with(context).load(R.drawable.avatar_default)
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.avatar_default)
-                    .error(R.drawable.avatar_default)
-                    .into(ivAvatar);
-
-            //加载磨砂背景
-            Glide.with(context).load(R.drawable.bgk_default)
-                    .bitmapTransform(new BlurTransformation(context, 25), new CenterCrop(context))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.bgk_default)
-                    .error(R.drawable.bgk_default)
-                    .into(topBgk);
-            userSignature.setText("登陆获取更多内容");
-        }else if (v == ivAvatar || v == userSignature){
-            if (!loginStatus){
+            //退出登陆
+            exitLogin();
+        }else if (v == ivAvatar ){
+            if (loginStatus){
+                //更改头像
+            }else {
+                //跳转登陆界面
+                Intent intent = new Intent(context, LoginActivity.class);
+                startActivityForResult(intent,REQUEST_CODE);
+            }
+        }else if (v == userSignature){
+            if (loginStatus){
+                //更改个性签名
+            }else {
+                //跳转登陆界面
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivityForResult(intent,REQUEST_CODE);
             }
         }
+    }
+
+    private void exitLogin() {
+        //隐藏用户属性界面的展示
+        setUserInfoDisplay(false);
+
+        loginStatus = false;
+
+        //加载圆形头像为默认
+        Glide.with(context).load(R.drawable.avatar_default)
+                .bitmapTransform(new CropCircleTransformation(context))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.avatar_default)
+                .error(R.drawable.avatar_default)
+                .into(ivAvatar);
+
+        //加载磨砂背景为默认
+        Glide.with(context).load(R.drawable.bgk_default)
+                .bitmapTransform(new BlurTransformation(context, 25), new CenterCrop(context))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.bgk_default)
+                .error(R.drawable.bgk_default)
+                .into(topBgk);
+
+        //设置个性签名为提示登陆
+        userSignature.setText("登陆获取更多内容");
     }
 
     @Override
