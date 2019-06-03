@@ -7,10 +7,11 @@
     android:layout_height="50dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:background="@drawable/add_more_item_button_pressed"
+        android:background="@drawable/add_more"
         android:layout_width="30dp"
         android:layout_height="30dp" />
     <TextView
+        android:id="@+id/tv_more"
         android:layout_marginLeft="5dp"
         android:text="点击添加更多报名项"
         android:textSize="16sp"

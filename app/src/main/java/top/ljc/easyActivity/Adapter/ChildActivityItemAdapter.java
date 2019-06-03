@@ -16,15 +16,16 @@ import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
 
+import top.ljc.easyActivity.Data.ChildActivityItem;
 import top.ljc.easyActivity.Data.TableItem;
 import top.ljc.easyActivity.R;
 
-public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChildActivityItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //item类型是底部item
     public static final int TYPE_FOOTER_VIEW = 1;
 
-    private ArrayList<TableItem> arrayList;
+    private ArrayList<ChildActivityItem> arrayList;
 
     //对外暴露删除、设置、底部item点击事件
     OnitemClick onDeleteClickListener;
@@ -35,7 +36,7 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.onDeleteClickListener = onDeleteClickListener;
     }
 
-    public void setOnSettingClickListener(TableItemAdapter.onSettingClickListener onSettingClickListener) {
+    public void setOnSettingClickListener(ChildActivityItemAdapter.onSettingClickListener onSettingClickListener) {
         this.onSettingClickListener = onSettingClickListener;
     }
 
@@ -43,7 +44,7 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.onFooterClickListener = onFooterClickListener;
     }
 
-    public TableItemAdapter(ArrayList<TableItem> arrayList) {
+    public ChildActivityItemAdapter(ArrayList<ChildActivityItem> arrayList) {
         this.arrayList = arrayList;
     }
 
@@ -53,6 +54,7 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (viewType == TYPE_FOOTER_VIEW){
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_footer,viewGroup, false);
             FooterViewHolder footerViewHolder = new FooterViewHolder(view,onFooterClickListener);
+            footerViewHolder.setTvMoreText("点击添加更多活动项目");
             return footerViewHolder;
         }
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tableitem, viewGroup,false);
@@ -65,19 +67,19 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         if (viewHolder instanceof ContentViewHolder){
             ContentViewHolder contentViewHolder = (ContentViewHolder)viewHolder;
-            TableItem tableItem = arrayList.get(position);
-            contentViewHolder.tvData.setText(tableItem.getData());
-            contentViewHolder.tvExample.setText(tableItem.getExample());
-            contentViewHolder.btDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onDeleteClickListener.onItemClick(position);
-                }
-            });
+            ChildActivityItem tableItem = arrayList.get(position);
+            contentViewHolder.tvData.setText(tableItem.getName());
+            contentViewHolder.tvExample.setText(tableItem.getNotice());
             contentViewHolder.ivSetting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onSettingClickListener.onSettingClick(position);
+                }
+            });
+            contentViewHolder.btDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onDeleteClickListener.onItemClick(position);
                 }
             });
             //设置展示模式
@@ -155,12 +157,13 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static class FooterViewHolder extends RecyclerView.ViewHolder{
         LinearLayout footer;
         View.OnClickListener onFooterClickListener;
+        TextView tvMore;
 
         public FooterViewHolder(@NonNull View itemView, View.OnClickListener onFooterClickListener) {
             super(itemView);
             this.onFooterClickListener = onFooterClickListener;
             footer = (LinearLayout)itemView.findViewById(R.id.footer_recylerview);
-
+            tvMore = (TextView)itemView.findViewById(R.id.tv_more);
             footer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -168,9 +171,13 @@ public class TableItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 }
             });
         }
+
+        public void setTvMoreText(String text) {
+            tvMore.setText(text);
+        }
     }
 
-    //定义一个列表每个item点击事件的接口
+    //定义一个点击事件的接口
     public interface OnitemClick {
         void onItemClick(int position);
     }

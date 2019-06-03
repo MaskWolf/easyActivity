@@ -209,7 +209,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
                             .add("uPhone",phone)
                             .build();
                     Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS+"/user/regist")
+                            .url(SERVER_ADDRESS+"/user/register")
                             .post(requestBody)
                             .build();
                     okHttpClient.newCall(request).enqueue(new Callback() {
@@ -235,16 +235,16 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private void parseJSONWithJSONObject(String jsonData){
         try{
+            User user = new User();
             JSONObject jsonObject = new JSONObject(jsonData);
             Boolean registerSuccess = jsonObject.getBoolean("registerSuccess");
+            user.setAvatar(jsonObject.getString("userImage"));
             String registerMessage = jsonObject.getString("registerMessage");
             if (registerSuccess){
-                User user = new User();
                 jsonObject = jsonObject.getJSONObject("registerUser");
                 user.setPhone(jsonObject.getString("uPhone"));
                 user.setUid(jsonObject.getInt("uId"));
                 user.setUname(jsonObject.getString("uName"));
-                user.setAvatar(jsonObject.getString("uAvatarUrl"));
                 user.setSignature(jsonObject.getString("uSignature"));
                 user.setSex(jsonObject.getBoolean("uSex"));
             }else{

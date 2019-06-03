@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:text="设置报名项属性"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_item_name"
+        app:head_title_text="报名项"
+        app:edit_hint_text="请输入报名项的名称"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_item_hint"
+        android:layout_marginTop="10dp"
+        app:head_title_text="提示信息"
+        app:edit_hint_text="请输入展示给用户的提示信息"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+</LinearLayout>

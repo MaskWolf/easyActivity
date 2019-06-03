@@ -140,17 +140,17 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private void parseJSONWithJSONObject(String jsonData){
         try{
+            User user = new User();
             JSONObject jsonObject = new JSONObject(jsonData);
             Boolean loginSuccess = jsonObject.getBoolean("loginSuccess");
+            user.setAvatar(jsonObject.getString("userImagePath"));
             loginStatus = loginSuccess;
             String loginMessage = jsonObject.getString("loginMessage");
             if (loginSuccess){
-                User user = new User();
                 jsonObject = jsonObject.getJSONObject("userData");
                 user.setPhone(jsonObject.getString("uPhone"));
                 user.setUid(jsonObject.getInt("uId"));
                 user.setUname(jsonObject.getString("uName"));
-                user.setAvatar(jsonObject.getString("uAvatarUrl"));
                 user.setSignature(jsonObject.getString("uSignature"));
                 user.setSex(jsonObject.getBoolean("uSex"));
 

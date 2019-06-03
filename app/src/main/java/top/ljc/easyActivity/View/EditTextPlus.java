@@ -22,11 +22,6 @@ import android.widget.TextView;
 
 import top.ljc.easyActivity.R;
 
-/**
- * @author 请叫我张懂
- * @date 2017/11/3
- */
-
 public class EditTextPlus extends FrameLayout {
     private Context mContext;
     private TextView tvHead;
@@ -236,6 +231,14 @@ public class EditTextPlus extends FrameLayout {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
 
+
+    /**
+     * 设置输入框文字
+     * @param string
+     */
+    public void setEditText(String string){
+        etInput.setText(string);
+    }
 
     /**
      * 设置输入框的字体大小(单位:sp)

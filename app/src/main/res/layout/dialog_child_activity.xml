@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:text="设置活动项目属性"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_activity_name"
+        app:head_title_text="活动名称"
+        app:edit_hint_text="请输入活动项目的名称"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_item_notice"
+        android:layout_marginTop="10dp"
+        app:head_title_text="描述"
+        app:edit_hint_text="请输入对活动项目的简单描述"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <top.ljc.easyActivity.View.EditTextPlus
+        app:edit_input_type="Number"
+        android:id="@+id/etp_item_score"
+        android:layout_marginTop="10dp"
+        app:head_title_text="积分"
+        app:edit_hint_text="请输入活动单次参与可获积分"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <top.ljc.easyActivity.View.EditTextPlus
+        app:edit_input_type="Number"
+        android:id="@+id/etp_item_daymaxjoin"
+        android:layout_marginTop="10dp"
+        app:head_title_text="参加次数"
+        app:edit_hint_text="活动每日参与可获积分最大次数"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+</LinearLayout>

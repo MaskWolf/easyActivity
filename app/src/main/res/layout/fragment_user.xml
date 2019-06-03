@@ -44,40 +44,48 @@
                 android:layout_height="wrap_content">
                 <top.ljc.easyActivity.View.ItemView
                     android:id="@+id/iv_usrename"
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="用户名"
                     app:right_text="LJC"
                     app:show_right_arrow="true" />
 
                 <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/iv_sex"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="性别"
                     app:right_text="男"
                     app:show_right_arrow="true" />
 
                 <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/iv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="手机号"
                     app:right_text="136****1006"
                     app:show_right_arrow="true" />
 
                 <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/iv_qq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="QQ"
                     app:right_text="未绑定"
                     app:show_right_arrow="true" />
@@ -89,26 +97,31 @@
                     android:id="@+id/iv_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="关于我们"
                     app:right_text=""
                     app:show_right_arrow="true" />
 
                 <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/iv_cache"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="清除缓存"
                     app:right_text="3.2M"
                     app:show_right_arrow="true" />
 
                 <top.ljc.easyActivity.View.ItemView
+                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:id="@+id/iv_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_default_itemview"
                     app:left_text="版本"
                     app:right_text="1.0.0"
                     app:show_right_arrow="true" />

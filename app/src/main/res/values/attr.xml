@@ -3,7 +3,9 @@
     <declare-styleable name="ItemView">
         <attr name="left_text" format="string"/>    //左侧标题文字
         <attr name="right_text" format="string"/>   //右侧描述文字
+        <attr name="right_arrow" format="reference"/>   //右侧箭头图片资源
         <attr name="show_right_arrow" format="boolean"/>    //是否显示右侧小箭头
+        <attr name="background" format="reference"/>    //控件背景
     </declare-styleable>
 
     <declare-styleable name="mToolbar">

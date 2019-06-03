@@ -1,29 +1,42 @@
 package top.ljc.easyActivity.Activity;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
+import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import top.ljc.easyActivity.Data.User;
+import top.ljc.easyActivity.Adapter.ChildActivityItemAdapter;
+import top.ljc.easyActivity.Adapter.TableItemAdapter;
+import top.ljc.easyActivity.Data.ChildActivityItem;
+import top.ljc.easyActivity.Data.TableItem;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.mToolbar;
@@ -32,26 +45,22 @@ import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class CreateActivity extends AppCompatActivity {
     private Context context;
+
     private mToolbar mToolbar;
     private EditTextPlus etpName;
     private EditTextPlus etpLocation;
     private EditTextPlus etpAbstract;
+    private TextView tvDeadline;
     private EditText etDescription;
+    private TimePickerView pvTime;
 
-    private final static int ADDACTIVITY = 1;
+    private RecyclerView rvChildActivity;
+    private ArrayList<ChildActivityItem> childActivityItems;
+    private ChildActivityItemAdapter childActivityItemAdapter;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case ADDACTIVITY:
-                    parseJSONWithJSONObject((String) msg.obj);
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    private RecyclerView rvTable;
+    private ArrayList<TableItem> tableItems;
+    private TableItemAdapter tableItemAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,13 +72,12 @@ public class CreateActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         setContentView(R.layout.activity_create);
+
         findViews();
 
-        initView();
-    }
+        initData();
 
-    private void initView() {
-
+        initViews();
     }
 
     private void findViews() {
@@ -77,9 +85,21 @@ public class CreateActivity extends AppCompatActivity {
         etpName = (EditTextPlus) findViewById(R.id.etp_name);
         etpLocation = (EditTextPlus) findViewById(R.id.etp_location);
         etpAbstract = (EditTextPlus) findViewById(R.id.etp_abstract);
+        tvDeadline = (TextView) findViewById(R.id.tv_deadline);
         etDescription = (EditText) findViewById(R.id.et_description);
+        rvChildActivity = (RecyclerView) findViewById(R.id.rv_child_activity);
+        rvTable = (RecyclerView) findViewById(R.id.rv_table);
 
+        //时间选择器
+        pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date,View v) {//选中事件回调
+                tvDeadline.setTextColor(getResources().getColor(R.color.smssdk_black));
+                tvDeadline.setText(date.toString());
+            }
+        }).build();
 
+        //设置标题栏点击时间
         mToolbar.setOnClickBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,12 +109,227 @@ public class CreateActivity extends AppCompatActivity {
         mToolbar.setOnClickRightListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"发送数据",Toast.LENGTH_SHORT).show();
                 addActivity();
-                /*Intent intent = new Intent(context,TableActivity.class);
-                startActivity(intent);*/
+            }
+
+        });
+
+        //设置截止日期文本框点击事件
+        tvDeadline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show();
             }
         });
+    }
+
+    private void initData() {
+        childActivityItems = new ArrayList<>();
+        childActivityItems.add(new ChildActivityItem("活动项目一","活动项目一的描述"));
+
+        tableItems = new ArrayList<>();
+        tableItems.add(new TableItem("邮箱","example@example.com"));
+    }
+
+    private void initViews() {
+        childActivityItemAdapter = new ChildActivityItemAdapter(childActivityItems);
+        rvChildActivity.setLayoutManager(new LinearLayoutManager(this));
+        rvChildActivity.setAdapter(childActivityItemAdapter);
+        childActivityItemAdapter.setOnDeleteClickListener(new ChildActivityItemAdapter.OnitemClick() {
+            @Override
+            public void onItemClick(int position) {
+                childActivityItems.remove(position);
+                childActivityItemAdapter.notifyDataSetChanged();
+            }
+        });
+        childActivityItemAdapter.setOnSettingClickListener(new ChildActivityItemAdapter.onSettingClickListener() {
+            @Override
+            public void onSettingClick(int position) {
+                showChildActivitySettingDialog(position);
+            }
+        });
+        childActivityItemAdapter.setOnFooterClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChildActivitySettingDialog(-1);
+            }
+        });
+
+        tableItemAdapter = new TableItemAdapter(tableItems);
+        rvTable.setLayoutManager(new LinearLayoutManager(this));
+        rvTable.setAdapter(tableItemAdapter);
+        tableItemAdapter.setOnDeleteClickListener(new TableItemAdapter.OnitemClick() {
+            @Override
+            public void onItemClick(int position) {
+                tableItems.remove(position);
+                tableItemAdapter.notifyDataSetChanged();
+            }
+        });
+        tableItemAdapter.setOnSettingClickListener(new TableItemAdapter.onSettingClickListener() {
+            @Override
+            public void onSettingClick(int position) {
+                showTableSettingDialog(position);
+            }
+        });
+        tableItemAdapter.setOnFooterClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSingleChoiceDialog();
+            }
+        });
+    }
+
+    /**
+     * 弹出一个报名项目的单选列表框
+     */
+    private void showSingleChoiceDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("选择一个报名项");
+        //    指定下拉列表的显示数据
+        final String[] list = {"姓名", "学号","QQ", "邮箱", "手机号", "自定义"};
+        final String[] listDes = {"请输入姓名", "请输入学号","330****766", "example@example.com", "136****1006", "自定义"};
+        //    设置一个下拉的列表选择项
+        builder.setItems(list, new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                if (which == list.length-1){
+                    showTableSettingDialog(-1);
+                    return;
+                }
+                tableItems.add(new TableItem(list[which],listDes[which]));
+                tableItemAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * 弹出报名项设置框
+     * @param position
+     * -1表示直接添加到集合中，0-length表示更改容器中对应位置的值
+     */
+    private void showTableSettingDialog(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_table, null);
+
+        //设置Dialog界面初始状态
+        EditTextPlus name = (EditTextPlus)view.findViewById(R.id.etp_item_name);
+        EditTextPlus hint = (EditTextPlus)view.findViewById(R.id.etp_item_hint);
+        if (-1 != position){
+            TableItem tableItem = tableItems.get(position);
+            name.setEditText(tableItem.getData());
+            hint.setEditText(tableItem.getExample());
+        }
+
+        //    设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                String a = name.getText().toString().trim();
+                String b = hint.getText().toString().trim();
+                if (a==null||a.equals("")||b==null||b.equals("")){
+                    return;
+                }
+                if (-1 == position){
+                    tableItems.add(new TableItem(a,b));
+                }else {
+                    TableItem tableItem = tableItems.get(position);
+                    tableItem.setData(a);
+                    tableItem.setExample(b);
+                }
+                tableItemAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        builder.show();
+    }
+
+    /**
+     * 弹出子活动属性设置框
+     * @param position
+     * -1表示直接添加到集合中，0-length表示更改容器中对应位置的值
+     */
+    private void showChildActivitySettingDialog(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_child_activity, null);
+
+        //设置Dialog界面初始状态
+        EditTextPlus etpActivityName = (EditTextPlus) view.findViewById(R.id.etp_activity_name);
+        EditTextPlus etpItemNotice = (EditTextPlus) view.findViewById(R.id.etp_item_notice);
+        EditTextPlus etpItemScore = (EditTextPlus) view.findViewById(R.id.etp_item_score);
+        EditTextPlus etpItemDaymaxjoin = (EditTextPlus) view.findViewById(R.id.etp_item_daymaxjoin);
+        if (-1 != position){
+            ChildActivityItem childActivityItem = childActivityItems.get(position);
+            etpActivityName.setEditText(childActivityItem.getName());
+            etpItemNotice.setEditText(childActivityItem.getNotice());
+            etpItemScore.setEditText(childActivityItem.getScore()+"");
+            etpItemDaymaxjoin.setEditText(childActivityItem.getDaymaxjoin()+"");
+        }
+
+        //    设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                String a = etpActivityName.getText();
+                String b = etpItemNotice.getText();
+                int c;
+                int d;
+
+                if(etpItemScore.getText()==null||etpItemScore.getText().equals("")){
+                    c = 0;
+                }else {
+                    c = Integer.parseInt(etpItemScore.getText());
+                }
+                if (etpItemDaymaxjoin.getText()==null||etpItemDaymaxjoin.getText().equals("")){
+                    d = 1;
+                }else {
+                    d = Integer.parseInt(etpItemDaymaxjoin.getText());
+                }
+
+                if (a==null||a.equals("")||b==null||b.equals("")){
+                    return;
+                }
+
+                if (-1 == position){
+                    childActivityItems.add(new ChildActivityItem(a,b,c,d));
+                }else {
+                    ChildActivityItem childActivityItem = childActivityItems.get(position);
+                    childActivityItem.setName(a);
+                    childActivityItem.setNotice(b);
+                    childActivityItem.setScore(c);
+                    childActivityItem.setDaymaxjoin(d);
+                }
+                childActivityItemAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+            }
+        });
+        builder.show();
     }
 
     private void addActivity() {
@@ -108,9 +343,14 @@ public class CreateActivity extends AppCompatActivity {
             Toast.makeText(context,"请输入活动举办位置",Toast.LENGTH_SHORT).show();
             return;
         }
-        String aAbstract = etpName.getText();
+        String aAbstract = etpAbstract.getText();
         if (aAbstract==null||aAbstract.equals("")){
             Toast.makeText(context,"请输入对活动一句话简介",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String aDeadline = tvDeadline.getText().toString();
+        if (aDeadline.equals("请选择活动截止日期")){
+            Toast.makeText(context,"请选择活动截止日期",Toast.LENGTH_SHORT).show();
             return;
         }
         String aDescription = etDescription.getText().toString();
@@ -118,67 +358,43 @@ public class CreateActivity extends AppCompatActivity {
             Toast.makeText(context,"请输入对活动的详细描述",Toast.LENGTH_SHORT).show();
             return;
         }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
-                    OkHttpClient okHttpClient = new OkHttpClient();
-                    RequestBody requestBody = new FormBody.Builder()
-                            .add("uName","zhangsan")
-                            .add("aName", aName)
-                            .add("aDeadlineTime","2019-5-30")
-                            .add("aAbstract",aAbstract)
-                            .add("aDescription",aDescription)
-                            .build();
-                    Request request = new Request.Builder()
-                            .url(SERVER_ADDRESS+"/activity/addActivity")
-                            .post(requestBody)
-                            .build();
-                    okHttpClient.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
+                OkHttpClient okHttpClient  = new OkHttpClient.Builder()
+                        .connectTimeout(10, TimeUnit.SECONDS)
+                        .writeTimeout(10,TimeUnit.SECONDS)
+                        .readTimeout(20, TimeUnit.SECONDS)
+                        .build();
 
-                        }
+                //使用Gson与
+                Gson gson = new Gson();
+                String json = gson.toJson(tableItems);
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            Message message = new Message();
-                            message.what = ADDACTIVITY;
-                            message.obj = response.body().string();
-                            handler.sendMessage(message);
-                        }
-                    });
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                //MediaType  设置Content-Type 标头中包含的媒体类型值
+                RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
+
+                Request request = new Request.Builder()
+                        .url(SERVER_ADDRESS+"/activity/createActivity")//请求的url
+                        .post(requestBody)
+                        .build();
+
+                //创建/Call
+                Call call = okHttpClient.newCall(request);
+                //加入队列 异步操作
+                call.enqueue(new Callback() {
+                    //请求错误回调方法
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("连接失败");
+                    }
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        System.out.println(response.body().string());
+                    }
+                });
             }
         }).start();
-    }
-
-    private void parseJSONWithJSONObject(String jsonData){
-        Toast.makeText(context,jsonData,Toast.LENGTH_SHORT).show();
-        /*try{
-            JSONObject jsonObject = new JSONObject(jsonData);
-            Boolean loginSuccess = jsonObject.getBoolean("loginSuccess");
-            loginStatus = loginSuccess;
-            String loginMessage = jsonObject.getString("loginMessage");
-            if (loginSuccess){
-                User user = new User();
-                jsonObject = jsonObject.getJSONObject("userData");
-                user.setPhone(jsonObject.getString("uPhone"));
-                user.setUid(jsonObject.getInt("uId"));
-                user.setUname(jsonObject.getString("uName"));
-                user.setAvatar(jsonObject.getString("uAvatarUrl"));
-                user.setSignature(jsonObject.getString("uSignature"));
-                user.setSex(jsonObject.getBoolean("uSex"));
-
-                BackPreActivity();
-            }else{
-                Toast.makeText(this,loginMessage,Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
     }
 }

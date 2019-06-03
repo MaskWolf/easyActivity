@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.squareup.okio:okio:2.2.2'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
-    implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
-    implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

@@ -12,132 +12,159 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
-    <TextView
-        android:gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:text="图灵运动挑战赛"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/qr_code"
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/drawable_default_edittext_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content">
+                <top.ljc.easyActivity.View.ItemView
+                    android:id="@+id/itemview_basic"
+                    app:left_text="活动基本信息"
+                    app:right_arrow="@drawable/filter_down"
+                    app:show_right_arrow="true"
+                    app:right_text="活动名称"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <TextView
-                    android:text="开启/关闭活动报名"
-                    android:textColor="@android:color/black"
-                    android:gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
-                <com.suke.widget.SwitchButton
+                    android:visibility="gone"
+                    android:id="@+id/tv_basic_name"
+                    android:text="活动名称：活动名称"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/switch_button_join"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/iv_basic_qrcode"
+                    android:src="@drawable/qr_code"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp" />
+                <TextView
+                    android:id="@+id/tv_basic_location"
+                    android:visibility="gone"
+                    android:text="活动地点：风华操场（老操）"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_basic_abstract"
+                    android:text="活动摘要：一句话描述该活动"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_basic_deadline"
+                    android:text="活动截止日期：请选择活动截止日期"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/drawable_default_edittext_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <top.ljc.easyActivity.View.ItemView
+                    android:id="@+id/itemview_des"
+                    app:left_text="活动简介"
+                    app:right_arrow="@drawable/filter_down"
+                    app:show_right_arrow="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_des"
+                    android:text="活动简介：请输入对该活动的详细介绍"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <top.ljc.easyActivity.View.ItemView
+                android:id="@+id/itemview_switch_join"
+                android:background="@drawable/drawable_default_edittext_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                app:left_text="开启/关闭活动报名"
+                app:show_right_arrow="false"
+                app:right_text="关闭"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:background="@drawable/drawable_default_edittext_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="点击查看管理员详细信息，左滑删除管理员"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerview_manager"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
-                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/drawable_default_edittext_plus"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="wrap_content">
                 <TextView
-                    android:text="开启/关闭积分排行榜"
+                    android:gravity="center"
+                    android:text="设置活动项目"
                     android:textColor="@android:color/black"
-                    android:gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
-                <com.suke.widget.SwitchButton
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/switch_button_rank"
-                    android:gravity="center_vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/recyclerview_child_activity"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/drawable_default_edittext_plus"
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
-        <TextView
-            android:text="单击查看管理员信息，长按删除管理员"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="80dp">
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:fitsSystemWindows="true"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/drawable_default_edittext_plus"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="活动公告"
-            android:textColor="@android:color/black"
-            android:layout_width="70dp"
-            android:layout_height="match_parent" />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/EditTextPlusDecoration" />
-        <EditText
-            android:imeOptions="actionSend"
-            android:hint="可在此处发布活动公告信息，参与者点击进入该活动将会立即得知此公告信息"
-            android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:textCursorDrawable="@null"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <Button
-        android:text="编辑活动公告"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:background="@drawable/bt_login"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    </ScrollView>
 
 </LinearLayout>
