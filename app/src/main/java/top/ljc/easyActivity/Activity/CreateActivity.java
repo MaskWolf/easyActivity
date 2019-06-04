@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,14 +21,17 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -37,6 +41,7 @@ import top.ljc.easyActivity.Adapter.ChildActivityItemAdapter;
 import top.ljc.easyActivity.Adapter.TableItemAdapter;
 import top.ljc.easyActivity.Data.ChildActivityItem;
 import top.ljc.easyActivity.Data.TableItem;
+import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.mToolbar;
@@ -45,6 +50,7 @@ import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class CreateActivity extends AppCompatActivity {
     private Context context;
+    private static final String TAG = "CreateActivity";
 
     private mToolbar mToolbar;
     private EditTextPlus etpName;
@@ -95,11 +101,12 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onTimeSelect(Date date,View v) {//选中事件回调
                 tvDeadline.setTextColor(getResources().getColor(R.color.smssdk_black));
-                tvDeadline.setText(date.toString());
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                tvDeadline.setText(dateFormat.format(date));
             }
         }).build();
 
-        //设置标题栏点击时间
+        //设置标题栏点击事件
         mToolbar.setOnClickBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,6 +355,7 @@ public class CreateActivity extends AppCompatActivity {
             Toast.makeText(context,"请输入对活动一句话简介",Toast.LENGTH_SHORT).show();
             return;
         }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String aDeadline = tvDeadline.getText().toString();
         if (aDeadline.equals("请选择活动截止日期")){
             Toast.makeText(context,"请选择活动截止日期",Toast.LENGTH_SHORT).show();
@@ -362,36 +370,49 @@ public class CreateActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpClient okHttpClient  = new OkHttpClient.Builder()
-                        .connectTimeout(10, TimeUnit.SECONDS)
-                        .writeTimeout(10,TimeUnit.SECONDS)
-                        .readTimeout(20, TimeUnit.SECONDS)
-                        .build();
-
-                //使用Gson与
+                User user = new User();
+                String json = "";
+                //使用Gson与JsonObject生成提交的json数据
                 Gson gson = new Gson();
-                String json = gson.toJson(tableItems);
+                try {
+                    JSONObject jsonObject = new JSONObject();
+
+                    JSONObject activityJsonObject = new JSONObject();
+                    activityJsonObject.put("uId",user.getUid());
+                    activityJsonObject.put("aName",aName);
+                    activityJsonObject.put("aAddress",aLocation);
+                    activityJsonObject.put("aAbstract",aAbstract);
+                    activityJsonObject.put("aDeadlineTime",aDeadline);
+                    activityJsonObject.put("aDescription",aDescription);
+                    jsonObject.put("activity",activityJsonObject);
+
+                    jsonObject.put("fieldList",new JSONArray(gson.toJson(tableItems)));
+
+                    jsonObject.put("childActivityList",new JSONArray(gson.toJson(childActivityItems)));
+
+                    json = jsonObject.toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d(TAG,json);
 
                 //MediaType  设置Content-Type 标头中包含的媒体类型值
-                RequestBody requestBody = FormBody.create(MediaType.parse("application/json; charset=utf-8"), json);
-
+                MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
                 Request request = new Request.Builder()
-                        .url(SERVER_ADDRESS+"/activity/createActivity")//请求的url
-                        .post(requestBody)
+                        .url(SERVER_ADDRESS+"/activity/createActivity")
+                        .post(RequestBody.create(mediaType, json))
                         .build();
-
-                //创建/Call
-                Call call = okHttpClient.newCall(request);
-                //加入队列 异步操作
-                call.enqueue(new Callback() {
-                    //请求错误回调方法
+                OkHttpClient okHttpClient = new OkHttpClient();
+                okHttpClient.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        System.out.println("连接失败");
+                        Log.d(TAG, "onFailure: " + e.getMessage());
                     }
+
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        System.out.println(response.body().string());
+                        Log.d(TAG, "onResponse: " + response.body().string());
                     }
                 });
             }

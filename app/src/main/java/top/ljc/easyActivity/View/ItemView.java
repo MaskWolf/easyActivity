@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import top.ljc.easyActivity.R;
 
 public class ItemView extends LinearLayout {
+
+    private float textSize = 13;
 
     private final boolean isShowRightArrow;
     private RelativeLayout itemView;
@@ -40,7 +43,14 @@ public class ItemView extends LinearLayout {
         ivArrow.setVisibility(isShowRightArrow ? View.VISIBLE : View.INVISIBLE);//设置右侧箭头图标是否显示
         tvLeft.setText(ta.getString(R.styleable.ItemView_left_text));//设置左侧标题文字
         tvRight.setText(ta.getString(R.styleable.ItemView_right_text));//设置右侧文字描述
+        textSize = ta.getDimension(R.styleable.ItemView_text_size, sp2px(textSize));    //得到文字大小
+        tvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        tvRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         ta.recycle();
+    }
+
+    private float sp2px(float sp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics());
     }
 
     /**

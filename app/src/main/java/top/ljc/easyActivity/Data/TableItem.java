@@ -1,7 +1,12 @@
 package top.ljc.easyActivity.Data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TableItem {
+    @SerializedName("fieldName")
     private String data;
+
+    @SerializedName("fieldNotice")
     private String example;
 
     public TableItem() {

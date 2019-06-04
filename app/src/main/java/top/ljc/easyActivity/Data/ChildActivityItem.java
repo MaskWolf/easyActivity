@@ -1,13 +1,22 @@
 package top.ljc.easyActivity.Data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ChildActivityItem {
     //子活动名称
+    @SerializedName("caName")
     private String name = "";
+
     //子活动描述
+    @SerializedName("caDescription")
     private String notice = "";
+
     //子活动积分
+    @SerializedName("caScore")
     private int score;
+
     //子活动每人每日最大参与次数
+    @SerializedName("caDayMaxJoin")
     private int daymaxjoin;
 
     public ChildActivityItem() {

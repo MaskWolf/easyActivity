@@ -143,7 +143,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             User user = new User();
             JSONObject jsonObject = new JSONObject(jsonData);
             Boolean loginSuccess = jsonObject.getBoolean("loginSuccess");
-            user.setAvatar(jsonObject.getString("userImagePath"));
+            user.setAvatar(jsonObject.getString("userImage"));
             loginStatus = loginSuccess;
             String loginMessage = jsonObject.getString("loginMessage");
             if (loginSuccess){

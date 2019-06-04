@@ -235,21 +235,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener{
 
     private void parseJSONWithJSONObject(String jsonData){
         try{
-            User user = new User();
             JSONObject jsonObject = new JSONObject(jsonData);
             Boolean registerSuccess = jsonObject.getBoolean("registerSuccess");
-            user.setAvatar(jsonObject.getString("userImage"));
             String registerMessage = jsonObject.getString("registerMessage");
+            Toast.makeText(this,registerMessage,Toast.LENGTH_SHORT).show();
             if (registerSuccess){
-                jsonObject = jsonObject.getJSONObject("registerUser");
-                user.setPhone(jsonObject.getString("uPhone"));
-                user.setUid(jsonObject.getInt("uId"));
-                user.setUname(jsonObject.getString("uName"));
-                user.setSignature(jsonObject.getString("uSignature"));
-                user.setSex(jsonObject.getBoolean("uSex"));
-            }else{
-                Toast.makeText(this,registerMessage,Toast.LENGTH_SHORT).show();
-                return;
+
+            }else {
+
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -11,10 +11,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -136,6 +139,7 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
+    private static final String TAG = "HomeFragment";
     /**
      * 解析服务器端返回的所有活动的json数据并添加到ArrayList集合中
      * @param jsonData
@@ -145,10 +149,15 @@ public class HomeFragment extends Fragment {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("activityData");
             for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObjectItem = (JSONObject) jsonArray.get(i);
+                JSONObject jsonObjectItem = jsonArray.getJSONObject(i);
                 ActivityItem activityItem = new ActivityItem();
                 activityItem.setTitle(jsonObjectItem.getString("aName"));
-                activityItem.setImageUrl(jsonObjectItem.getString("aPicturePath"));
+
+                JSONArray jsonArray1 = jsonObjectItem.getJSONArray("images");
+                if (jsonArray1.length()>0){
+                    activityItem.setImageUrl(jsonArray1.getString(0));
+                }
+
                 activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
                 activities.add(activityItem);
             }
