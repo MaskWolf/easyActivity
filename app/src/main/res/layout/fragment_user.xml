@@ -94,6 +94,56 @@
                     app:right_text="未绑定"
                     app:show_right_arrow="true" />
 
+                <LinearLayout
+                    android:id="@+id/ll_activity_joined"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/drawable_default_itemview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <top.ljc.easyActivity.View.ItemView
+                        android:id="@+id/itemview_activity_joined"
+                        app:text_size="16sp"
+                        app:left_text="我参与的活动"
+                        app:show_right_arrow="true"
+                        app:right_arrow="@drawable/filter_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/recyclerview_activity_joined"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_activity_managed"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/drawable_default_itemview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <top.ljc.easyActivity.View.ItemView
+                        android:id="@+id/itemview_activity_managed"
+                        app:text_size="16sp"
+                        app:left_text="我创建/管理的活动"
+                        app:show_right_arrow="true"
+                        app:right_arrow="@drawable/filter_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/recyclerview_activity_managed"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
                 <top.ljc.easyActivity.View.ItemView
                     app:text_size="16sp"
                     android:layout_marginLeft="20dp"

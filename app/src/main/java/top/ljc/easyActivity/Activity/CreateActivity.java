@@ -355,7 +355,6 @@ public class CreateActivity extends AppCompatActivity {
             Toast.makeText(context,"请输入对活动一句话简介",Toast.LENGTH_SHORT).show();
             return;
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String aDeadline = tvDeadline.getText().toString();
         if (aDeadline.equals("请选择活动截止日期")){
             Toast.makeText(context,"请选择活动截止日期",Toast.LENGTH_SHORT).show();

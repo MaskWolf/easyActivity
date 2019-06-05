@@ -58,7 +58,7 @@
         <RadioButton
             style="@style/bottom_tab_style"
             android:id="@+id/rb_activity"
-            android:text="活动"
+            android:text="动态"
             android:drawableTop="@drawable/rb_activity_selector" />
 
         <RadioButton

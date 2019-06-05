@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_3:
                 mPopupWindow.dismiss();
                 Toast.makeText(this, tv_3.getText(), Toast.LENGTH_SHORT).show();
-                intent = new Intent(this,ManageActivity.class);
+                intent = new Intent(this, SuperManageActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_4:

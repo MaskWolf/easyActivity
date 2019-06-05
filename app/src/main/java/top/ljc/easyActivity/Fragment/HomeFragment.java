@@ -11,24 +11,23 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import top.ljc.easyActivity.Activity.DetailsActivity;
-import top.ljc.easyActivity.Adapter.ActivityItemAdapter;
+import top.ljc.easyActivity.Adapter.HomeActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.R;
 
@@ -42,7 +41,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView ivNoNetwork;
     private ArrayList<ActivityItem> activities;
-    private ActivityItemAdapter activityAdapter;
+    private HomeActivityItemAdapter activityAdapter;
 
     private Handler handler = new Handler(){
         @Override
@@ -113,7 +112,7 @@ public class HomeFragment extends Fragment {
         activities = new ArrayList<>();
         swipeRefreshLayout.setRefreshing(true);
         getAllActivities();
-        activityAdapter = new ActivityItemAdapter(activities);
+        activityAdapter = new HomeActivityItemAdapter(activities);
         handler.sendEmptyMessageDelayed(UPDATE_ACTIVITYLIST,1000);
     }
 
@@ -146,19 +145,29 @@ public class HomeFragment extends Fragment {
      */
     private void parseJSONWithJSONObject(String jsonData){
         try{
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("activityData");
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObjectItem = jsonArray.getJSONObject(i);
                 ActivityItem activityItem = new ActivityItem();
-                activityItem.setTitle(jsonObjectItem.getString("aName"));
+                activityItem.setaId(jsonObjectItem.getInt("aId"));
+                activityItem.setPraiseCount(jsonObjectItem.getInt("praiseCount"));
+                activityItem.setaName(jsonObjectItem.getString("aName"));
+                activityItem.setaCreationTime(dateFormat.parse(jsonObjectItem.getString("aCreationTime")));
+                activityItem.setaDeadlineTime(dateFormat.parse(jsonObjectItem.getString("aDeadlineTime")));
+                activityItem.setaParticipation(jsonObjectItem.getInt("aParticipation"));
+                activityItem.setaAbstract(jsonObjectItem.getString("aAbstract"));
+                activityItem.setaDescription(jsonObjectItem.getString("aDescription"));
+                activityItem.setaStatus(jsonObjectItem.getBoolean("aStatus"));
+                activityItem.setaNotice(jsonObjectItem.getString("aNotice"));
+                activityItem.setaAddress(jsonObjectItem.getString("aAddress"));
 
-                JSONArray jsonArray1 = jsonObjectItem.getJSONArray("images");
-                if (jsonArray1.length()>0){
-                    activityItem.setImageUrl(jsonArray1.getString(0));
+                JSONArray images = jsonObjectItem.getJSONArray("images");
+                for (int j=0;j<images.length();j++){
+                    activityItem.addImage(images.getString(j));
                 }
 
-                activityItem.setDesc(jsonObjectItem.getString("aAbstract"));
                 activities.add(activityItem);
             }
         }catch (Exception e){

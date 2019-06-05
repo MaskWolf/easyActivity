@@ -23,7 +23,7 @@ import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.ItemView;
 import top.ljc.easyActivity.View.mToolbar;
 
-public class ManageActivity extends AppCompatActivity {
+public class SuperManageActivity extends AppCompatActivity {
     private Boolean isSpreadBasic = false;
     private Boolean isSpreadDes = false;
 

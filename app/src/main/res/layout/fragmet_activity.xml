@@ -1,55 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefreshlayout_activity"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-    `           <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-                <TextView
-                    android:background="@android:color/white"
-                    android:id="@+id/activity_participated"
-                    android:textColor="@android:color/black"
-                    android:gravity="center"
-                    android:text="参与的活动"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
-                <TextView
-                    android:id="@+id/activity_managing"
-                    android:background="@color/WhiteSmoke"
-                    android:textColor="@android:color/black"
-                    android:gravity="center"
-                    android:text="创建/管理的活动"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:background="@android:color/white"
-                android:id="@+id/recyclerview_activity"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_login_false"
-        android:layout_centerInParent="true"
-        android:text="请先登陆账号！"
-        android:textSize="16sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </RelativeLayout>

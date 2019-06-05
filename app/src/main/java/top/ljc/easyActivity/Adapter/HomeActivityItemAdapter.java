@@ -17,7 +17,7 @@ import java.util.List;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.R;
 
-public class ActivityItemAdapter extends RecyclerView.Adapter<ActivityItemAdapter.ViewHolder> {
+public class HomeActivityItemAdapter extends RecyclerView.Adapter<HomeActivityItemAdapter.ViewHolder> {
 
     private Context context;
 
@@ -29,7 +29,7 @@ public class ActivityItemAdapter extends RecyclerView.Adapter<ActivityItemAdapte
         OnRecyclerItemClickListener = onRecyclerItemClickListener;
     }
 
-    public ActivityItemAdapter(List<ActivityItem> activityList) {
+    public HomeActivityItemAdapter(List<ActivityItem> activityList) {
         this.activityList = activityList;
     }
 
@@ -39,7 +39,7 @@ public class ActivityItemAdapter extends RecyclerView.Adapter<ActivityItemAdapte
         if (null == context){
             context = viewGroup.getContext();
         }
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_activity, viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_activity, viewGroup,false);
         ViewHolder holder = new ViewHolder(view, OnRecyclerItemClickListener);
         return holder;
     }
@@ -47,9 +47,9 @@ public class ActivityItemAdapter extends RecyclerView.Adapter<ActivityItemAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ActivityItem activity = activityList.get(i);
-        viewHolder.activityTitle.setText(activity.getTitle());
-        viewHolder.activityDesc.setText(activity.getDesc());
-        Glide.with(context).load(activity.getImageUrl())
+        viewHolder.activityTitle.setText(activity.getaName());
+        viewHolder.activityDesc.setText(activity.getaAbstract());
+        Glide.with(context).load(activity.getImage(0))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.image_activity_default)
                 .error(R.drawable.image_activity_default)
