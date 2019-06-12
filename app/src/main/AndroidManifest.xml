@@ -57,6 +57,16 @@
             android:name=".Activity.SuperManageActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".Activity.NormalManageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".Activity.SignupActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

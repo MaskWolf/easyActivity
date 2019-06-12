@@ -1,11 +1,14 @@
 package top.ljc.easyActivity.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ActivityItem {
+public class ActivityItem implements Serializable {
     //活动的唯一标识符
     private int aId;
+    //活动对应动态的唯一标识符
+    private int pId;
     //活动是否可以参加
     private Boolean aStatus;
     //活动名称
@@ -33,14 +36,20 @@ public class ActivityItem {
         images = new ArrayList<>();
     }
 
-
-
     public int getaId() {
         return aId;
     }
 
     public void setaId(int aId) {
         this.aId = aId;
+    }
+
+    public int getpId() {
+        return pId;
+    }
+
+    public void setpId(int pId) {
+        this.pId = pId;
     }
 
     public Boolean getaStatus() {

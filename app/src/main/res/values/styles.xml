@@ -30,10 +30,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@android:color/holo_blue_light</item>
-    </style>
 
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#ff3097fd</item> <!--淡蓝色-->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item> <!--深绿色-->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

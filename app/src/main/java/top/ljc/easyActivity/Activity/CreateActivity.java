@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -372,7 +373,7 @@ public class CreateActivity extends AppCompatActivity {
                 User user = new User();
                 String json = "";
                 //使用Gson与JsonObject生成提交的json数据
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 try {
                     JSONObject jsonObject = new JSONObject();
 

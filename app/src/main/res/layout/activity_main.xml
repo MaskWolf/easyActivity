@@ -56,6 +56,7 @@
             android:drawableTop="@drawable/rb_home_selector"/>
 
         <RadioButton
+            android:visibility="gone"
             style="@style/bottom_tab_style"
             android:id="@+id/rb_activity"
             android:text="动态"

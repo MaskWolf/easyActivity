@@ -40,7 +40,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import top.ljc.easyActivity.Activity.DetailsActivity;
 import top.ljc.easyActivity.Activity.LoginActivity;
+import top.ljc.easyActivity.Activity.NormalManageActivity;
+import top.ljc.easyActivity.Activity.SuperManageActivity;
 import top.ljc.easyActivity.Adapter.UserActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.Data.User;
@@ -87,6 +90,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private ItemView itemviewActivityManaged;
     private ArrayList<ActivityItem> arrayListManaged;
     private UserActivityItemAdapter adapterManaged;
+    private ArrayList<Integer> flags;
 
     private Handler handler = new Handler(){
         @Override
@@ -138,11 +142,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         itemviewActivityJoined = (ItemView) view.findViewById(R.id.itemview_activity_joined);
         itemviewActivityManaged = (ItemView) view.findViewById(R.id.itemview_activity_managed);
 
-        llActivityJoined.setOnClickListener(this);
-        llActivityManaged.setOnClickListener(this);
         btExit.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
         userSignature.setOnClickListener(this);
+        llActivityJoined.setOnClickListener(this);
+        llActivityManaged.setOnClickListener(this);
+        ivAbout.setOnClickListener(this);
     }
 
     public void initData() {
@@ -153,6 +158,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
         adapterJoined = new UserActivityItemAdapter(arrayListJoined);
         adapterManaged = new UserActivityItemAdapter(arrayListManaged);
+        flags = new ArrayList<>();
     }
 
     private void initView(View view) {
@@ -183,6 +189,32 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
         recyclerviewActivityManaged.setLayoutManager(new LinearLayoutManager(context));
         recyclerviewActivityManaged.setAdapter(adapterManaged);
+
+        adapterJoined.setOnitemClick(new UserActivityItemAdapter.OnitemClick() {
+            @Override
+            public void onItemClick(int position) {
+                //打开活动详情界面
+                Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("activityitem",arrayListJoined.get(position));
+                startActivity(intent);
+            }
+        });
+        adapterManaged.setOnitemClick(new UserActivityItemAdapter.OnitemClick() {
+            @Override
+            public void onItemClick(int position) {
+                if (flags.get(position) == 0){
+                    //如果是创建者，打开超级管理员界面
+                    Intent intent = new Intent(context, SuperManageActivity.class);
+                    intent.putExtra("activityitem",arrayListManaged.get(position));
+                    startActivity(intent);
+                }else {
+                    //打开普通管理员界面
+                    Intent intent = new Intent(context, NormalManageActivity.class);
+                    intent.putExtra("activityitem",arrayListManaged.get(position));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -218,7 +250,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 isSpreadActivityJoined = true;
                 getActivityList(2);
             }
-
         }else if (v == llActivityManaged){
             if (isSpreadActivityManaged){
                 itemviewActivityManaged.setArrowImage(R.drawable.filter_down);
@@ -232,6 +263,9 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 getActivityList(0);
                 getActivityList(1);
             }
+        }else if (v == ivAbout){
+            Intent intent = new Intent(context,NormalManageActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -363,10 +397,22 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                                     arrayListJoined.add(gson.fromJson(activity,new TypeToken<ActivityItem>(){}.getType()));
                                 }
                                 handler.sendEmptyMessage(UPDATE_LIST_JOINED);
-                            }else {
-                                //请求的数据是创建、管理列表
+                            }else if (status == 1){
+                                //请求的数据是管理的活动
                                 for (JsonElement activity:jsonArray){
-                                    arrayListManaged.add(gson.fromJson(activity,new TypeToken<ActivityItem>(){}.getType()));
+                                    synchronized (arrayListManaged){
+                                        arrayListManaged.add(gson.fromJson(activity,new TypeToken<ActivityItem>(){}.getType()));
+                                        flags.add(1);
+                                    }
+                                }
+                                handler.sendEmptyMessage(UPDATE_LIST_MANAGED);
+                            }else {
+                                //请求的数据是创建的活动
+                                for (JsonElement activity:jsonArray){
+                                    synchronized (arrayListManaged){
+                                        arrayListManaged.add(gson.fromJson(activity,new TypeToken<ActivityItem>(){}.getType()));
+                                        flags.add(0);
+                                    }
                                 }
                                 handler.sendEmptyMessage(UPDATE_LIST_MANAGED);
                             }

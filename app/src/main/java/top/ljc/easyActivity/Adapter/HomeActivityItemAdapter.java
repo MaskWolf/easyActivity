@@ -23,9 +23,9 @@ public class HomeActivityItemAdapter extends RecyclerView.Adapter<HomeActivityIt
 
     private List<ActivityItem> activityList;
 
-    private View.OnClickListener OnRecyclerItemClickListener;
+    private HomeActivityItemAdapter.OnitemClick OnRecyclerItemClickListener;
 
-    public void setOnRecyclerItemClickListener(View.OnClickListener onRecyclerItemClickListener) {
+    public void setOnRecyclerItemClickListener(OnitemClick onRecyclerItemClickListener) {
         OnRecyclerItemClickListener = onRecyclerItemClickListener;
     }
 
@@ -40,13 +40,19 @@ public class HomeActivityItemAdapter extends RecyclerView.Adapter<HomeActivityIt
             context = viewGroup.getContext();
         }
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_activity, viewGroup,false);
-        ViewHolder holder = new ViewHolder(view, OnRecyclerItemClickListener);
+        ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ActivityItem activity = activityList.get(i);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnRecyclerItemClickListener.onItemClick(i);
+            }
+        });
         viewHolder.activityTitle.setText(activity.getaName());
         viewHolder.activityDesc.setText(activity.getaAbstract());
         Glide.with(context).load(activity.getImage(0))
@@ -63,24 +69,22 @@ public class HomeActivityItemAdapter extends RecyclerView.Adapter<HomeActivityIt
 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
+        View itemView;
         ImageView activityImage;
         TextView activityTitle;
         TextView activityDesc;
-        View.OnClickListener OnRecyclerItemClickListener;
 
-        public ViewHolder(@NonNull View itemView, View.OnClickListener onItemClickListener) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.OnRecyclerItemClickListener = onItemClickListener;
+            this.itemView = itemView;
             activityImage = (ImageView)itemView.findViewById(R.id.activity_image);
             activityTitle = (TextView)itemView.findViewById(R.id.activity_title);
             activityDesc = (TextView) itemView.findViewById(R.id.activity_desc);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onClick(v);
-                }
-            });
         }
+    }
+
+    //定义一个点击事件的接口
+    public interface OnitemClick {
+        void onItemClick(int position);
     }
 }

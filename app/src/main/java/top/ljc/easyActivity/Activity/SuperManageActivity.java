@@ -6,24 +6,52 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import top.ljc.easyActivity.Adapter.ChildActivityItemAdapter;
+import top.ljc.easyActivity.Adapter.ManagerAdapter;
+import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.Data.ChildActivityItem;
+import top.ljc.easyActivity.Data.Manager;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.ItemView;
 import top.ljc.easyActivity.View.mToolbar;
 
+import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
+
 public class SuperManageActivity extends AppCompatActivity {
+
+    private ActivityItem activityItem;
+
     private Boolean isSpreadBasic = false;
     private Boolean isSpreadDes = false;
 
@@ -40,10 +68,14 @@ public class SuperManageActivity extends AppCompatActivity {
     private ItemView itemviewSwitchJoin;
 
     private RecyclerView recyclerviewManager;
+    private List<Manager> managerItems;
+    private ManagerAdapter managerAdapter;
 
     private RecyclerView recyclerviewChildActivity;
     private ArrayList<ChildActivityItem> childActivityItems;
     private ChildActivityItemAdapter childActivityItemAdapter;
+
+    private static final String TAG = "SuperManageActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,7 +159,7 @@ public class SuperManageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final String[] str = {"开启", "关闭"};
-                int checkeditem = itemviewSwitchJoin.getRightText().equals("开启")?0:1;
+                int checkeditem = activityItem.getaStatus()?0:1;
                 //    设置一个单项选择下拉框
                 /**
                  * 第一个参数指定我们要显示的一组下拉单选框的数据集合
@@ -149,11 +181,71 @@ public class SuperManageActivity extends AppCompatActivity {
     }
 
     private void initData(){
+        //获取上一个界面传过来的活动数据
+        activityItem = (ActivityItem) getIntent().getSerializableExtra("activityitem");
+
         childActivityItems = new ArrayList<>();
-        childActivityItems.add(new ChildActivityItem("活动项目一","活动项目一的描述"));
+        getAllChildActivity();
+
+        managerItems = new ArrayList<>();
+        managerItems.add(new Manager("http://img2.imgtn.bdimg.com/it/u=2260937709,2065328859&fm=26&gp=0.jpg","一"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","二"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","三"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","四"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","五"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","六"));
+        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","七"));
+    }
+
+    /**
+     * 从服务器端得到该大活动下的所有小活动的信息
+     */
+    private void getAllChildActivity() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("aId", activityItem.getaId()+"")
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(SERVER_ADDRESS+"/activity/getAllChildActivity")
+                            .post(requestBody)
+                            .build();
+                    okHttpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.d(TAG,"联网获取列表数据失败");
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                            JsonObject jsonObject = gson.fromJson(response.body().string(),JsonObject.class);
+                            JsonArray jsonArray = jsonObject.getAsJsonArray("childActivityData");
+                            for (JsonElement jsonElement:jsonArray){
+                                childActivityItems.add(gson.fromJson(jsonElement,new TypeToken<ChildActivityItem>(){}.getType()));
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void initViews(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        itemviewBasic.setRightText(activityItem.getaName());
+        tvBasicName.setText("活动名称："+activityItem.getaName());
+        tvBasicLocation.setText("活动地点："+activityItem.getaAddress());
+        tvBasicAbstract.setText("活动摘要："+activityItem.getaAbstract());
+        tvBasicDeadline.setText("活动截止日期："+dateFormat.format(activityItem.getaDeadlineTime()));
+        tvDes.setText(activityItem.getaDescription());
+        itemviewSwitchJoin.setRightText(activityItem.getaStatus()?"开启":"关闭");
+
         childActivityItemAdapter = new ChildActivityItemAdapter(childActivityItems);
         recyclerviewChildActivity.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewChildActivity.setAdapter(childActivityItemAdapter);
@@ -176,6 +268,10 @@ public class SuperManageActivity extends AppCompatActivity {
                 showChildActivitySettingDialog(-1);
             }
         });
+
+        managerAdapter = new ManagerAdapter(managerItems);
+        recyclerviewManager.setLayoutManager(new GridLayoutManager(this,4));
+        recyclerviewManager.setAdapter(managerAdapter);
     }
 
     /**

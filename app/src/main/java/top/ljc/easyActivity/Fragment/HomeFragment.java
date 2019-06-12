@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +36,16 @@ import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "HomeFragment";
+
     private static final int UPDATE_ACTIVITYLIST = 1;
+
     private Context context;
+
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TextView ivNoNetwork;
+
     private ArrayList<ActivityItem> activities;
     private HomeActivityItemAdapter activityAdapter;
 
@@ -90,10 +96,12 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(activityAdapter);
 
-        activityAdapter.setOnRecyclerItemClickListener(new View.OnClickListener() {
+        activityAdapter.setOnRecyclerItemClickListener(new HomeActivityItemAdapter.OnitemClick() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(int position) {
+                //打开活动详情界面
                 Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("activityitem",activities.get(position));
                 startActivity(intent);
             }
         });
@@ -110,6 +118,10 @@ public class HomeFragment extends Fragment {
 
     private void initData(){
         activities = new ArrayList<>();
+        ActivityItem activityItem = new ActivityItem();
+        activityItem.setaName("测试活动一");
+        activityItem.setaAbstract("测试活动一的活动描述");
+        activities.add(activityItem);
         swipeRefreshLayout.setRefreshing(true);
         getAllActivities();
         activityAdapter = new HomeActivityItemAdapter(activities);
@@ -138,9 +150,8 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
-    private static final String TAG = "HomeFragment";
     /**
-     * 解析服务器端返回的所有活动的json数据并添加到ArrayList集合中
+     * 使用JSONObject解析服务器端返回的所有活动的json数据并添加到ArrayList集合中
      * @param jsonData
      */
     private void parseJSONWithJSONObject(String jsonData){
@@ -152,6 +163,7 @@ public class HomeFragment extends Fragment {
                 JSONObject jsonObjectItem = jsonArray.getJSONObject(i);
                 ActivityItem activityItem = new ActivityItem();
                 activityItem.setaId(jsonObjectItem.getInt("aId"));
+                activityItem.setpId(jsonObjectItem.getInt("pId"));
                 activityItem.setPraiseCount(jsonObjectItem.getInt("praiseCount"));
                 activityItem.setaName(jsonObjectItem.getString("aName"));
                 activityItem.setaCreationTime(dateFormat.parse(jsonObjectItem.getString("aCreationTime")));

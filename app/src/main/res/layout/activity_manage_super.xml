@@ -152,9 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:gravity="center"
-                    android:text="设置活动项目"
-                    android:textColor="@android:color/black"
+                    android:text="设置活动项目属性，左滑可删除项目"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <android.support.v7.widget.RecyclerView
