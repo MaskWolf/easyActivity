@@ -2,6 +2,7 @@
 <LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/WhiteSmoke">
@@ -112,6 +113,33 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@drawable/drawable_default_edittext_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <top.ljc.easyActivity.View.ItemView
+                    android:id="@+id/itemview_notice"
+                    app:left_text="活动公告"
+                    app:right_arrow="@drawable/filter_down"
+                    app:show_right_arrow="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_notice"
+                    android:text="活动公告：请输入展示给活动参与人员的公告栏信息"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
             <top.ljc.easyActivity.View.ItemView
                 android:id="@+id/itemview_switch_join"
                 android:background="@drawable/drawable_default_edittext_plus"
@@ -123,6 +151,36 @@
                 app:right_text="关闭"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:background="@drawable/drawable_default_edittext_plus"
+                    android:inputType="textEmailAddress"
+                    android:textCursorDrawable="@null"
+                    android:imeOptions="actionSend"
+                    android:lines="1"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:hint="提取报名表到指定邮箱"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"/>
+                <Button
+                    android:text="发送"
+                    android:textColor="@color/smssdk_white"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bt_login"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:background="@drawable/drawable_default_edittext_plus"
@@ -148,6 +206,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/drawable_default_edittext_plus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

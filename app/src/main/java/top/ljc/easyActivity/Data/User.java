@@ -14,6 +14,16 @@ public class User {
 
     private static String signature = "";
 
+    private static String email = "";
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static void setEmail(String email) {
+        User.email = email;
+    }
+
     public static String getSignature() {
         return signature;
     }

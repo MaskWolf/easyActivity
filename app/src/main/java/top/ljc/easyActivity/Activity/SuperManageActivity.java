@@ -2,6 +2,7 @@ package top.ljc.easyActivity.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -22,6 +24,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -41,6 +44,7 @@ import top.ljc.easyActivity.Adapter.ManagerAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.Data.ChildActivityItem;
 import top.ljc.easyActivity.Data.Manager;
+import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.ItemView;
@@ -50,6 +54,7 @@ import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class SuperManageActivity extends AppCompatActivity {
 
+    private User user;
     private ActivityItem activityItem;
 
     private Boolean isSpreadBasic = false;
@@ -184,6 +189,8 @@ public class SuperManageActivity extends AppCompatActivity {
         //获取上一个界面传过来的活动数据
         activityItem = (ActivityItem) getIntent().getSerializableExtra("activityitem");
 
+        user = new User();
+
         childActivityItems = new ArrayList<>();
         getAllChildActivity();
 
@@ -194,7 +201,6 @@ public class SuperManageActivity extends AppCompatActivity {
         managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","四"));
         managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","五"));
         managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","六"));
-        managerItems.add(new Manager("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg","七"));
     }
 
     /**
@@ -272,6 +278,15 @@ public class SuperManageActivity extends AppCompatActivity {
         managerAdapter = new ManagerAdapter(managerItems);
         recyclerviewManager.setLayoutManager(new GridLayoutManager(this,4));
         recyclerviewManager.setAdapter(managerAdapter);
+
+        managerAdapter.setOnitemClick(new ManagerAdapter.OnitemClick() {
+            @Override
+            public void onItemClick(int position) {
+                if (managerItems.size()-1 == position){
+                    addManager();
+                }
+            }
+        });
     }
 
     /**
@@ -345,6 +360,59 @@ public class SuperManageActivity extends AppCompatActivity {
 
             }
         });
+        builder.show();
+    }
+
+    /**
+     * 添加管理员
+     */
+    private void addManager() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_manager, null);
+
+        //设置Dialog界面初始状态
+        RadioButton rbTime2 = (RadioButton) view.findViewById(R.id.rb_time2);
+        RadioButton rbTime4 = (RadioButton) view.findViewById(R.id.rb_time4);
+        RadioButton rbTime8 = (RadioButton) view.findViewById(R.id.rb_time8);
+        RadioButton rbTime = (RadioButton) view.findViewById(R.id.rb_time);
+        ImageView ivManagerQrcode = (ImageView) view.findViewById(R.id.iv_manager_qrcode);
+        rbTime2.setChecked(true);
+        ivManagerQrcode.setImageBitmap(CodeUtils.createImage( "addManager:aId="+ user.getUid() +"&deadline=2h",
+                600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+
+        //设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+
+        rbTime2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivManagerQrcode.setImageBitmap(CodeUtils.createImage( "addManager:aId="+ user.getUid() +"&deadline=2h",
+                        600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+            }
+        });
+        rbTime4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivManagerQrcode.setImageBitmap(CodeUtils.createImage( "addManager:aId="+ user.getUid() +"&deadline=4h",
+                        600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+            }
+        });
+        rbTime8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivManagerQrcode.setImageBitmap(CodeUtils.createImage( "addManager:aId="+ user.getUid() +"&deadline=8h",
+                        600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+            }
+        });
+        rbTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivManagerQrcode.setImageBitmap(CodeUtils.createImage( "addManager:aId="+ user.getUid() +"&deadline=-1",
+                        600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+            }
+        });
+
         builder.show();
     }
 }

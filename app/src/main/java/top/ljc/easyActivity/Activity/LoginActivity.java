@@ -38,6 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private Boolean loginStatus = false;
 
     private Boolean isPwdRemember = false;
+    private Boolean isAutoLogin = false;
 
     private final static int LOGIN = 1;
     private final static int NO_NET = 2;
@@ -45,11 +46,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private Context context;
 
     private mToolbar mToolbar;
-    private TextView tvRegister;
     private EditTextPlus etUser;
     private EditTextPlus etPassword;
     private Button btLogin;
     private CheckBox cbPwdRemember;
+    private CheckBox cbAutoLogin;
 
     private SharedPreferencesUtils sharedPreferencesUtils;
 
@@ -90,22 +91,29 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private void initData() {
         sharedPreferencesUtils = new SharedPreferencesUtils(this,"data");
         isPwdRemember = sharedPreferencesUtils.getBoolean("isPwdRemember",false);
+        isAutoLogin = sharedPreferencesUtils.getBoolean("isAutoLogin",false);
     }
 
     private void findViews() {
         etUser = (EditTextPlus)findViewById( R.id.et_user );
         etPassword = (EditTextPlus)findViewById( R.id.et_password );
         btLogin = (Button) findViewById( R.id.bt_login );
-        tvRegister = (TextView)findViewById(R.id.tv_register);
         mToolbar = (mToolbar)findViewById(R.id.toolbar_login);
         cbPwdRemember = (CheckBox)findViewById(R.id.cb_pwd_remember);
+        cbAutoLogin = (CheckBox)findViewById(R.id.cb_auto_login);
 
-        tvRegister.setOnClickListener(this);
         btLogin.setOnClickListener( this );
         mToolbar.setOnClickBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackPreActivity();
+            }
+        });
+        mToolbar.setOnClickRightListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -115,15 +123,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             cbPwdRemember.setChecked(true);
             etUser.setEditText(sharedPreferencesUtils.getString("uName"));
             etPassword.setEditText(sharedPreferencesUtils.getString("uPassword"));
+            if (isAutoLogin){
+                login();
+                Toast.makeText(context,"自动登陆成功！",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (v == tvRegister){
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-        }else if (v == btLogin){
+        if (v == btLogin){
             login();
         }
     }
@@ -189,13 +198,18 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 user.setUname(jsonObject.getString("uName"));
                 user.setSignature(jsonObject.getString("uSignature"));
                 user.setSex(jsonObject.getBoolean("uSex"));
+                user.setEmail(jsonObject.getString("uEmail"));
 
                 isPwdRemember = cbPwdRemember.isChecked();
+                isAutoLogin = cbAutoLogin.isChecked();
                 sharedPreferencesUtils.putValues(new SharedPreferencesUtils.ContentValue("isPwdRemember",isPwdRemember));
                 //将用户名和密码存储到本地
                 if (isPwdRemember){
                     sharedPreferencesUtils.putValues(new SharedPreferencesUtils.ContentValue("uName",etUser.getText()));
                     sharedPreferencesUtils.putValues(new SharedPreferencesUtils.ContentValue("uPassword",etPassword.getText()));
+                    if (isAutoLogin){
+                        sharedPreferencesUtils.putValues(new SharedPreferencesUtils.ContentValue("isAutoLogin",isAutoLogin));
+                    }
                 }
 
                 BackPreActivity();

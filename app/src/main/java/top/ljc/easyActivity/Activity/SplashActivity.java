@@ -1,19 +1,16 @@
 package top.ljc.easyActivity.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import top.ljc.easyActivity.R;
 
-import static android.content.ContentValues.TAG;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
@@ -21,21 +18,23 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 实现透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        // 实现启动页面全屏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 startMainActivity();
             }
-        }, 2000);
+        }, 1000);
     }
 
     private void startMainActivity() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
+
         //关闭启动页面
         finish();
     }

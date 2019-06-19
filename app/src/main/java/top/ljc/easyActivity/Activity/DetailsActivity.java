@@ -1,6 +1,7 @@
 package top.ljc.easyActivity.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,7 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     private User user;
     private Banner banner;
     private Toolbar toolbar;
+    private Button btSignup;
     private TextView bt_comment;
     private CollapsingToolbarLayout collapsingToolbar;
     private CommentExpandableListView expandableListView;
@@ -115,12 +117,25 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        btSignup = (Button) findViewById(R.id.bt_signup);
+
+        btSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SignupActivity.class);
+                intent.putExtra("activityitem",activityItem);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {
         user = new User();
         activityItem = (ActivityItem) getIntent().getSerializableExtra("activityitem");
         images = activityItem.getImages();
+        if (images == null){
+            images = new ArrayList<>();
+        }
         images.add("http://img2.imgtn.bdimg.com/it/u=2260937709,2065328859&fm=26&gp=0.jpg");
         images.add("http://img0.imgtn.bdimg.com/it/u=1842273078,3771452716&fm=200&gp=0.jpg");
         images.add("http://img4.imgtn.bdimg.com/it/u=2365173552,1600985734&fm=26&gp=0.jpg");
@@ -270,7 +285,6 @@ public class DetailsActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.detail_page_do_comment){
-
             showCommentDialog();
         }
     }

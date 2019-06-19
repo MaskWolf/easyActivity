@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_msg_title"
+        android:layout_marginTop="10dp"
+        android:text="修改用户信息"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        app:head_title_text="用户信息"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <Button
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/bt_positive"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bt_login"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        android:layout_width="100dp"
+        android:layout_height="30dp" />
+</LinearLayout>

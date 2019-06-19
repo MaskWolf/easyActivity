@@ -19,4 +19,15 @@
         android:id="@+id/recyclerview_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <top.ljc.easyActivity.View.ItemView
+        android:id="@+id/itemview_child"
+        android:background="@drawable/drawable_default_edittext_plus"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:left_text="选择参与的活动"
+        app:right_text="活动名称"
+        app:show_right_arrow="false"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 </LinearLayout>

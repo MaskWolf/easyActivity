@@ -4,9 +4,11 @@
     android:layout_marginTop="10dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="50dp">
     <top.ljc.easyActivity.View.EditTextPlus
+        android:id="@+id/etp_signup"
         app:head_title_text="报名字段一"
+        app:edit_hint_text="报名字段的提示"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

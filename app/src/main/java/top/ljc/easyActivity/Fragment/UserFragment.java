@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,8 +30,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -48,6 +54,8 @@ import top.ljc.easyActivity.Adapter.UserActivityItemAdapter;
 import top.ljc.easyActivity.Data.ActivityItem;
 import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
+import top.ljc.easyActivity.Utils.SharedPreferencesUtils;
+import top.ljc.easyActivity.View.EditTextPlus;
 import top.ljc.easyActivity.View.ItemView;
 
 import static android.app.Activity.RESULT_OK;
@@ -60,6 +68,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
     private static final int UPDATE_LIST_JOINED = 11;
     private static final int UPDATE_LIST_MANAGED = 12;
+    private static final int NO_NET = 13;
+    private static final int UPDATE_USERINFO = 14;
 
     private Boolean loginStatus = false;
     private User user;
@@ -72,7 +82,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private ItemView ivUsrename;
     private ItemView ivSex;
     private ItemView ivPhone;
-    private ItemView ivQq;
+    private ItemView ivMail;
     private ItemView ivAbout;
     private ItemView ivCache;
     private ItemView ivVersion;
@@ -103,9 +113,29 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 case UPDATE_LIST_MANAGED:
                     adapterManaged.notifyDataSetChanged();
                     break;
+                case NO_NET:
+                    Toast.makeText(context,"请检查网络连接！",Toast.LENGTH_SHORT).show();
+                    break;
+                case UPDATE_USERINFO:
+                    updateUserInfo((String)msg.obj);
+                    break;
+                default:
+                    break;
             }
         }
     };
+
+    private void updateUserInfo(String string) {
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            Toast.makeText(context,jsonObject.getString("updateMessage"),Toast.LENGTH_SHORT).show();
+            if (jsonObject.getBoolean("updateSuccess")){
+                loginSuccess();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Nullable
     @Override
@@ -131,7 +161,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         ivUsrename = (ItemView)view.findViewById( R.id.iv_usrename );
         ivSex = (ItemView)view.findViewById( R.id.iv_sex );
         ivPhone = (ItemView)view.findViewById( R.id.iv_phone );
-        ivQq = (ItemView)view.findViewById( R.id.iv_qq );
+        ivMail = (ItemView)view.findViewById( R.id.iv_mail );
         ivAbout = (ItemView)view.findViewById( R.id.iv_about );
         ivCache = (ItemView)view.findViewById( R.id.iv_cache );
         ivVersion = (ItemView)view.findViewById( R.id.iv_version );
@@ -142,6 +172,9 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         itemviewActivityJoined = (ItemView) view.findViewById(R.id.itemview_activity_joined);
         itemviewActivityManaged = (ItemView) view.findViewById(R.id.itemview_activity_managed);
 
+        ivUsrename.setOnClickListener(this);
+        ivPhone.setOnClickListener(this);
+        ivMail.setOnClickListener(this);
         btExit.setOnClickListener(this);
         ivAvatar.setOnClickListener(this);
         userSignature.setOnClickListener(this);
@@ -233,6 +266,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }else if (v == userSignature){
             if (loginStatus){
                 //更改个性签名
+                popUpdateDialog("签名", userSignature.getText().toString(),2);
             }else {
                 //跳转登陆界面
                 Intent intent = new Intent(context, LoginActivity.class);
@@ -266,6 +300,17 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }else if (v == ivAbout){
             Intent intent = new Intent(context,NormalManageActivity.class);
             startActivity(intent);
+        }else if (v == ivUsrename){
+            //修改用户名
+            popUpdateDialog("用户名", ivUsrename.getRightText(),0);
+        }else if (v == ivPhone){
+            //修改手机号
+            popUpdateDialog("手机号", ivPhone.getRightText(),3);
+        }else if (v == ivSex){
+            //修改性别
+        }else if (v == ivMail){
+            //修改邮箱
+            popUpdateDialog("邮箱", ivMail.getRightText(),4);
         }
     }
 
@@ -293,6 +338,17 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
         //设置个性签名为提示登陆
         userSignature.setText("登陆获取更多内容");
+
+        //清除用户信息缓存
+        new SharedPreferencesUtils(context,"data").clear();
+
+        //用户信息回归初始值
+        user.setUid(0);
+        user.setAvatar("");
+        user.setUname("");
+        user.setPhone("");
+        user.setSex(false);
+        user.setSignature("");
     }
 
     @Override
@@ -313,7 +369,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             ivUsrename.setVisibility(View.VISIBLE);
             ivSex.setVisibility(View.VISIBLE);
             ivPhone.setVisibility(View.VISIBLE);
-            ivQq.setVisibility(View.VISIBLE);
+            ivMail.setVisibility(View.VISIBLE);
             btExit.setVisibility(View.VISIBLE);
             llActivityJoined.setVisibility(View.VISIBLE);
             llActivityManaged.setVisibility(View.VISIBLE);
@@ -321,7 +377,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             ivUsrename.setVisibility(View.GONE);
             ivSex.setVisibility(View.GONE);
             ivPhone.setVisibility(View.GONE);
-            ivQq.setVisibility(View.GONE);
+            ivMail.setVisibility(View.GONE);
             btExit.setVisibility(View.GONE);
             llActivityJoined.setVisibility(View.GONE);
             llActivityManaged.setVisibility(View.GONE);
@@ -357,6 +413,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }
 
         ivPhone.setRightText(user.getPhone());
+        ivMail.setRightText(user.getEmail());
+
         setUserInfoDisplay(true);
     }
 
@@ -423,5 +481,100 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 }
             }
         }).start();
+    }
+
+
+    /**
+     * 弹出更新用户信息的弹窗
+     * @param title 弹出框标题文字
+     * @param string 编辑框文字
+     * @param flag  改变的哪个用户信息的标志
+     */
+    private void popUpdateDialog(String title,String string,int flag){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_update, null);
+
+        //设置Dialog界面初始状态
+        TextView tvMsgTitle = (TextView) view.findViewById(R.id.tv_msg_title);
+        EditTextPlus etpContent = (EditTextPlus) view.findViewById(R.id.etp_content);
+        Button btPositive = (Button) view.findViewById(R.id.bt_positive);
+
+        tvMsgTitle.setText("修改"+ title);
+        etpContent.setHeadText(title);
+        etpContent.setEditText(string);
+
+        //设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+
+        AlertDialog dialog = builder.show();
+        btPositive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String content = etpContent.getText();
+                if (content == null||content.equals("")){
+                    Toast.makeText(context,"请输入修改的信息内容！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                                    .connectTimeout(1, TimeUnit.SECONDS);
+                            OkHttpClient okHttpClient = builder.build();
+                            RequestBody requestBody = new FormBody.Builder()
+                                    .add("uId",user.getUid()+"")
+                                    .add("flag", flag+"")
+                                    .add("content",content)
+                                    .build();
+                            Request request = new Request.Builder()
+                                    .url(SERVER_ADDRESS+"/user/updateUserInfo")
+                                    .post(requestBody)
+                                    .build();
+                            okHttpClient.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+                                    handler.sendEmptyMessage(NO_NET);
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    String str = response.body().string();
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(str);
+                                        if (jsonObject.getBoolean("updateSuccess")){
+                                            switch (flag){
+                                                case 0:
+                                                    user.setUname(content);
+                                                    break;
+                                                case 2:
+                                                    user.setSignature(content);
+                                                    break;
+                                                case 3:
+                                                    user.setPhone(content);
+                                                    break;
+                                                case 4:
+                                                    user.setEmail(content);
+                                                    break;
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Message message = new Message();
+                                    message.what = UPDATE_USERINFO;
+                                    message.obj = str;
+                                    handler.sendMessage(message);
+                                }
+                            });
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                dialog.dismiss();
+            }
+        });
     }
 }

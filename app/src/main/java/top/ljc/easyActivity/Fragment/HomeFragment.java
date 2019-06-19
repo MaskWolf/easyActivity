@@ -119,9 +119,7 @@ public class HomeFragment extends Fragment {
     private void initData(){
         activities = new ArrayList<>();
         ActivityItem activityItem = new ActivityItem();
-        activityItem.setaName("测试活动一");
-        activityItem.setaAbstract("测试活动一的活动描述");
-        activities.add(activityItem);
+
         swipeRefreshLayout.setRefreshing(true);
         getAllActivities();
         activityAdapter = new HomeActivityItemAdapter(activities);

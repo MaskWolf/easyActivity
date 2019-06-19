@@ -1,11 +1,17 @@
 package top.ljc.easyActivity.Activity;
 
 import android.animation.Animator;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -22,20 +28,39 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import top.ljc.easyActivity.Adapter.MyFragmentPagerAdapter;
+import top.ljc.easyActivity.Data.User;
 import top.ljc.easyActivity.R;
 import top.ljc.easyActivity.Utils.AnimUtil;
+import top.ljc.easyActivity.View.EditTextPlus;
+
+import static top.ljc.easyActivity.Utils.Constants.SERVER_ADDRESS;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener{
 
-    private static final int REQUEST_CODE = 1;
+    private Context context;
+
     private ImageView ivMore;
     private TextView tv_1, tv_2, tv_3, tv_4;
     private PopupWindow mPopupWindow;
     private AnimUtil animUtil;
+
+    private User user;
     private float bgAlpha = 1f;
     private boolean bright = false;
-
+    private static final int REQUEST_CODE = 1;
+    private static final int FAILURE = 2;
+    private static final int SUCCESS = 3;
     private static final long DURATION = 500;
     private static final float START_ALPHA = 0.7f;
     private static final float END_ALPHA = 1f;
@@ -48,6 +73,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private MyFragmentPagerAdapter myFragmentPagerAdapter;
 
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case FAILURE:
+                    Toast.makeText(context, "获取管理员权限失败，请检查网络连接！", Toast.LENGTH_LONG).show();
+                    break;
+                case SUCCESS:
+                    Toast.makeText(context, "获取管理员权限成功！", Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //初始化Zxing二维码扫描生成框架
         ZXingLibrary.initDisplayOpinion(this);
+
+        context = this;
 
         setContentView(R.layout.activity_main);
         findViews();
@@ -68,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initData() {
         myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+
+        user = new User();
     }
 
     private void initView() {
@@ -124,8 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_3:
                 mPopupWindow.dismiss();
                 Toast.makeText(this, tv_3.getText(), Toast.LENGTH_SHORT).show();
-                intent = new Intent(this, SuperManageActivity.class);
-                startActivity(intent);
+                addManager();
                 break;
             case R.id.tv_4:
                 mPopupWindow.dismiss();
@@ -147,6 +191,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             vpMain.setCurrentItem(2);
             toolbar.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 扫描二维码获取管理员权限
+     */
+    private void getManagerPermission(String arguments){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                            .connectTimeout(1, TimeUnit.SECONDS);
+                    OkHttpClient okHttpClient = builder.build();
+                    RequestBody requestBody = new FormBody.Builder()
+                            .add("uId", user.getUid()+"")
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(SERVER_ADDRESS+"/manager/addManager?"+arguments)
+                            .build();
+                    okHttpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            handler.sendEmptyMessage(FAILURE);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            handler.sendEmptyMessage(SUCCESS);
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    /**
+     * 添加管理员
+     */
+    private void addManager() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        //通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_picture, null);
+
+        //设置Dialog界面初始状态
+        ImageView imageView = (ImageView) view.findViewById(R.id.picture_qr_code);
+        imageView.setImageBitmap(CodeUtils.createImage( "addManager:aId=1&deadline=2019-6-20",
+                600, 600, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)));
+
+        //设置我们自己定义的布局文件作为弹出框的Content
+        builder.setView(view);
+
+        builder.show();
     }
 
 
@@ -268,6 +366,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
                     Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
+                    String[] strings = result.split(":");
+                    if (strings[0].equals("addManager")){
+                        getManagerPermission(strings[1]);
+                    }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
                 }
