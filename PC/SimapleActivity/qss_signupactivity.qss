@@ -1,0 +1,47 @@
+
+/*设置背景色为白色*/
+#widget{
+    background-color:rgb(233,233,233);
+}
+
+/*设置加入活动的窗口栏背景色*/
+#widget_sign_up_nav{
+/*    background-color:rgb(62,188,125);*/
+    background:transparent;
+}
+
+
+/*设置都不显示边框*/
+#listWidget_data{
+    border:none;
+    background:transparent;
+}
+
+#listWidget_child_data{
+/*    background-color:rgb(233,233,233);*/
+    background:transparent;
+    border:1px solid rgb(62,188,125);
+}
+
+/*提交按钮*/
+#pushButton_post{
+    background-color:rgb(33,148,248);
+    border:none;
+    border-radius:5px;
+
+}
+#pushButton_post:hover{
+    background-color:rgb(28,196,252);
+
+}
+
+
+/*去除默认的设置   启用自定义设置*/
+#listWidget_child_data::item:hover,#listWidget_data::item:hover{
+    background-color:rgb(228,226,222);
+}
+
+#listWidget_child_data::item:selected,#listWidget_data::item:selected{
+}
+
+/*设置选择的每一项的高度*/

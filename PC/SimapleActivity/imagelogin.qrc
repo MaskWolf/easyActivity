@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/Login">
+        <file>C:/Users/ASUS/Pictures/Login/close.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/close2.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/set.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/set2.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/wkf.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/human-1-fill-gray.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/lock.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/code.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/ufufill.png</file>
+        <file>C:/Users/ASUS/Pictures/Image/yyy.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Login/vsp_s.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/vxt.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/human-1-fill-blue.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/lockfill.png</file>
+        <file>C:/Users/ASUS/Pictures/Image/123.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Image/126.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Image/127.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Image/128.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Login/logo.png</file>
+    </qresource>
+    <qresource prefix="/Main">
+        <file>C:/Users/ASUS/Pictures/Login/set_20px.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/set_white_20px.png</file>
+        <file>C:/Users/ASUS/Pictures/Login/add_green_22px.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wvk.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wvk-change.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wvk-change-right.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wvk-right.png</file>
+        <file>C:/Users/ASUS/Pictures/Image/123.jpg</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wgw.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/wgz.png</file>
+        <file>C:/Users/ASUS/Pictures/Camera Roll/fap.png</file>
+    </qresource>
+</RCC>

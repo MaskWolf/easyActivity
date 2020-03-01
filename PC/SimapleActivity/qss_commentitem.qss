@@ -1,0 +1,15 @@
+#widgetInner{
+    background-color:rgba(255,255,255,0);
+    border-bottom:1px solid rgb(172,172,246);
+
+}
+
+#widget_last_cpntent{
+    background:rgb(255,255,255);
+
+}
+
+#label_curr_name,#label_last_name{
+    color:rgb(12,115,194)
+
+}

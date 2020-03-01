@@ -1,0 +1,51 @@
+/*评论框的美化*/
+#textEdit{
+    border:none;
+    border-radius:5px;
+    background-color:rgba(255,255,255,0.3)
+
+}
+
+/*显示评论的美化*/
+#listWidget_show_coment{
+    border:none;
+    background-color:rgba(255,255,255,0.5);
+
+}
+
+#widget_write_comment{
+    border-bottom:1px solid white;
+
+}
+
+
+
+
+QScrollBar:vertical{
+    background:transparent;
+    width:9px;
+    margin:0 0 0 2px 0;
+}
+
+QScrollBar::handle:vertical{
+    background:rgb(195,195,195);
+    min-height:20px;
+    border-radius:3px;
+}
+
+QScrollBar::handle:vertiacl:hover{
+    background:rgba(0,0,0,30%);
+}
+
+QScrollBar::add-line:vertical{
+    height:0px;
+    subcontrol-position:bottom;
+    subcontrol-origin:margin;
+
+}
+
+QScrollBar::sub-line:vertical{
+    height:0px;
+    subcontrol-position:top;
+    subcontrol-origin:margin;
+}

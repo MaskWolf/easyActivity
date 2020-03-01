@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>qss_login.qss</file>
+        <file>qss_register.qss</file>
+        <file>qss_main.qss</file>
+        <file>qss_mylistwidget.qss</file>
+        <file>qss_userinfochoose.qss</file>
+        <file>qss_contentitem.qss</file>
+        <file>qss_signupactivity.qss</file>
+        <file>qss_userdynamic.qss</file>
+        <file>qss_writecomment.qss</file>
+        <file>qss_commentitem.qss</file>
+        <file>qss_createdynamic.qss</file>
+        <file>qss_manageritem.qss</file>
+        <file>qss_updateactivity.qss</file>
+    </qresource>
+</RCC>

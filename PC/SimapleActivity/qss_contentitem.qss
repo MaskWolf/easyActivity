@@ -1,0 +1,37 @@
+
+#widgetInner{
+    background-color:rgb(248,246,242);
+
+}
+
+/*加入活动按钮的美化*/
+#toolButton_sign_up{
+    color:red;
+    border:none;
+
+}
+#toolButton_sign_up:hover{
+    border-bottom:1px solid red;
+}
+
+#widgetImageContent{
+
+}
+
+#pushButton_praise{
+    border:none;
+    border-right:1px solid rgb(234,233,177);
+    background-color:rgb(248,246,242);
+
+}
+
+#pushButton_write_comment{
+    border:none;
+    background-color:rgb(248,246,242);
+
+}
+
+#label_create_time{
+    border-bottom:1px solid black;
+
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图灵运动挑战赛</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/signUp.css">
+    <script src="../js/jquery-3.3.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/getParameter.js"></script>
+    <script>
+        $(function () {
+            var aId = getParameter("aId");
+            load(aId);
+        });
+        function load(aId) {
+            //发送ajax请求
+            $.post("file/test",{aId:aId},function (data) {
+                alert(data);
+            });
+            /*$.get("manager/getActivityFields",{aId:aId},function (mapJson) {
+                var lis = "";
+                alert(mapJson);
+                for(var i = 0;i < data.fields.length;i++){
+                    var li = '<li class="signup-item" id="uName">\n' +
+                        '            <label for="">' + data.fields[i].fieldName+ '</label>\n' +
+                        '            <input type="text" placeholder="' + data.fields[i].fieldNotice + '">\n' +
+                        '        </li>';
+                    lis += li;
+                }
+                alert(lis);
+               $("#fields").html(lis);
+            });*/
+        }
+    </script>
+</head>
+<div class="main">
+    <div class="main-head">
+        <label for="">请填写报名信息</label>
+    </div>
+    <form id="loginForm" about="" method="post" accept-charset="utf-8">
+    <ul class="main-signup-ul fill-data" id="fields">
+
+        <li class="signup-item">
+            <label for="">用户名</label>
+            <input type="text" placeholder="请输入用户名">
+        </li>
+        <li class="signup-item">
+            <label for="">年龄</label>
+            <input type="text" placeholder="请输入年龄">
+        </li>
+        <li class="signup-item">
+            <label for="">电话</label>
+            <input type="text" placeholder="请输入电话">
+        </li>
+        <li class="signup-item">
+            <label for="">性别</label>
+            <input type="text">
+        </li>
+        <li class="signup-item">
+            <label for="">身份证号码</label>
+            <input type="text">
+        </li>
+        <li class="signup-item">
+            <label for="">不知道</label>
+            <input type="text">
+        </li>
+    </ul>
+    <div class="main-head">
+        <label for="">选择参加的子活动</label>
+    </div>
+    <ul class="main-signup-ul choose-child-activity">
+        <li class="signup-item child-activity-item">
+            <input type="checkbox">
+            <label for="">跳绳</label>
+        </li>
+        <li class="signup-item child-activity-item">
+            <input type="checkbox">
+            <label for="">跳水</label>
+        </li>
+        <li class="signup-item child-activity-item">
+            <input type="checkbox">
+            <label for="">跑步</label>
+        </li>
+
+
+    </ul>
+    <div class="choose">
+        <button class="choose-submit" id="signUpButton">报名</button>
+        <button class="choose-cancel">取消</button>
+    </div>
+    </form>
+</div>
+<div class="footer">
+
+
+</div>
+<body>
+</body>
+</html>

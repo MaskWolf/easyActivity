@@ -1,0 +1,283 @@
+
+
+#widgetNav{
+/*    background-color:rgb(62,188,125);*/
+    background:transparent;
+    border:1px solid white;
+}
+
+#listWidgetChoose{
+/*    background-color:rgb(245,245,247);*/
+    background:transparent;
+    border:none;
+    border-top:1px solid rgb(200,235,214);
+    border-right:1px solid rgb(172,172,246);
+}
+
+
+/*主栈容器背景透明*/
+#stackedWidget_main{
+/*    background-color:rgb(233,233,233);*/
+/*    background:white;*/
+    background:transparent;
+}
+
+#tBChoose{
+    background-color:rgb(233,233,233);
+}
+
+#listWidgetMainContent{
+    border:none;
+/*    background-color:rgb(233,233,233);*/
+/*    background:white;*/
+    background:transparent;
+}
+/*小菜单显示的头像*/
+#label_small_menu_head{
+    border-radius:25px;
+}
+
+/*显示所有活动界面导航栏*/
+#widgetMainPageNav{
+/*    background-color:rgb(233,233,233);*/
+/*    border:none;*/
+    background:transparent;
+    border-bottom:1px solid rgb(63,204,84);
+}
+
+/* “我创建的”界面渲染*/
+#widget_mycreate_nav,#widget_dynamic_nav{
+    border-bottom:1px solid rgb(63,204,84);
+}
+#listWidget_my_create{
+    border:none;
+    background:transparent;
+}
+
+/*设置最小化最大化按钮字体颜色为白色*/
+#toolButtonMax,#toolButtonMin,#toolButtonClose{
+    color:white;
+}
+#toolButtonMax:hover,#toolButtonMin:hover,#toolButtonClose:hover{
+    color:rgb(28,196,252);
+}
+
+/*搜索框的美化*/
+#lineEdit_search{
+/*    background:transparent;*/
+    border-radius:8px;
+/*    border:1px solid black;*/
+    background-color:rgba(255,255,255,0.2);
+/*    color:black;*/
+    padding:2px 8px;
+/*    background:url(":/Main/C:/Users/ASUS/Pictures/Login/set_20px.png") no-repeat right;*/
+}
+#lineEdit_search:focus{
+    color:black;
+}
+
+/*去掉所有按钮的边框*/
+QToolButton{
+    border:none;
+
+}
+
+/*设置小菜单按钮样式*/
+#toolButtonUserSet{
+    color:white;
+    border:none;
+}
+#toolButtonUserSet:hover{
+    color:white;
+}
+
+/*美化新建活动按钮*/
+#toolButton_create_activity{
+    background-color:white;
+    border-radius:8px;
+    border:1px solid rgb(63,204,84);
+    padding:2px;
+}
+#toolButton_create_activity:hover{
+    background-color:rgb(248,246,242);
+}
+
+/*美化刷新按钮*/
+#toolButton_update{
+    background-color:white;
+    border-radius:8px;
+    border:1px solid rgb(63,204,84);
+    padding:2px;
+}
+#toolButton_update:hover{
+    background-color:rgb(248,246,242);
+}
+
+/*美化新建动态按钮、刷新按钮*/
+#pushButton_write_dynamic,#pushButton_dynamic_update{
+    background-color:white;
+    border-radius:8px;
+    border:1px solid rgb(63,204,84);
+    padding:2px;
+
+}
+#pushButton_write_dynamic:hover,#pushButton_dynamic_update:hover{
+    background-color:rgb(248,246,242);
+
+}
+
+/*美化我创建的界面的刷新按钮*/
+#pushButton_my_create_update{
+    background-color:white;
+    border-radius:8px;
+    border:1px solid rgb(63,204,84);
+    padding:2px;
+}
+
+#pushButton_my_create_update:hover{
+    background-color:rgb(248,246,242);
+}
+
+/*创建主活动的输入框的美化*/
+#lineEdit_name,#textEdit_abstract,#lineEdit_address,#dateEdit_date,#textEdit_decription,#lineEdit_notice{
+    border:none;
+    border-radius:5px;
+    background-color:rgba(255,255,255,0.4);
+}
+
+
+#comboBox_choose_about_me,#comboBox_choose_dynamic{
+    border:1px solid rgb(63,204,84);
+    border-radius:5px;
+    background-color:rgb(255,255,255);
+}
+
+/*活动*/
+QComboBox::drop-down#comboBox_choose_about_me{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+    subcontrol-position: bottom right;
+    width:15px;
+    padding-right:5px;
+
+}
+QComboBox::drop-down:on#comboBox_choose_about_me{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vxt.png");
+}
+
+QComboBox::drop-down:off#comboBox_choose_about_me{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+}
+
+/*动态*/
+QComboBox::drop-down#comboBox_choose_dynamic{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+    subcontrol-position: bottom right;
+    width:15px;
+    padding-right:5px;
+
+}
+
+QComboBox::drop-down:on#comboBox_choose_dynamic{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vxt.png");
+}
+
+QComboBox::drop-down:off#comboBox_choose_dynamic{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+}
+
+
+/*QDateEdit::up-arrow{
+    background-image:url(":/Login/C:/Users/ASUS/Pictures/Login/vxt.png") no-repeat -50 0;
+    border:none;
+}
+QDateEdit::down-arrow{
+    background-image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png") no-repeat -5 0;
+    border:none;
+}*/
+
+
+/*创建活动界面的所有按钮的样式*/
+#pushButton_finished,#pushButton_add_child_activity,#pushButton_create_child_act,#pushButton_create_finish{
+    background-color:rgb(33,148,248);
+    border:none;
+    border-radius:5px;
+}
+#pushButton_finished:hover,
+#pushButton_add_child_activity:hover,
+#pushButton_create_child_act:hover,
+#pushButton_create_finish:hover{
+    background-color:rgb(28,196,252);
+
+}
+
+
+/*创建活动的所有ListWidget的样式*/
+#listWidget_base_type,#listWidget_userdefined,#listWidget_child_activity{
+    border:none;
+    background-color:rgba(255,255,255,0.3);
+    border-radius:5px;
+}
+
+
+#label_current{
+    color:red;
+
+}
+
+/*创建活动上方的前进后退按钮*/
+#toolButton_last_step{
+    background:url(":/Main/C:/Users/ASUS/Pictures/Camera Roll/wvk.png");
+
+}
+#toolButton_last_step:hover{
+    background:url(":/Main/C:/Users/ASUS/Pictures/Camera Roll/wvk-change.png");
+
+}
+#toolButton_next_step{
+    background:url(":/Main/C:/Users/ASUS/Pictures/Camera Roll/wvk-right.png");
+
+}
+#toolButton_next_step:hover{
+    background:url(":/Main/C:/Users/ASUS/Pictures/Camera Roll/wvk-change-right.png");
+
+}
+
+/*显示动态的listwidget渲染*/
+#listWidget_user_dynamic{
+    border:none;
+    background:transparent;
+}
+
+/*设置界面的头像  设置为圆形*/
+#label_user_set_head{
+    border-radius:40px;
+
+}
+QScrollBar:vertical{
+    background:transparent;
+    width:9px;
+    margin:0 0 0 2px 0;
+}
+
+QScrollBar::handle:vertical{
+    background:rgb(195,195,195);
+    min-height:20px;
+    border-radius:3px;
+}
+
+QScrollBar::handle:vertiacl:hover{
+    background:rgba(0,0,0,30%);
+}
+
+QScrollBar::add-line:vertical{
+    height:0px;
+    subcontrol-position:bottom;
+    subcontrol-origin:margin;
+
+}
+
+QScrollBar::sub-line:vertical{
+    height:0px;
+    subcontrol-position:top;
+    subcontrol-origin:margin;
+}

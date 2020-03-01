@@ -1,0 +1,123 @@
+/* CSS Document */
+
+body{
+	margin: 0px;
+	padding:0px;
+	font-size: 18px;
+	font-family: "楷体"
+}
+
+.main-head{
+	text-align: center;
+}
+
+.header{
+	width:100%;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:99999;
+}
+
+.main{
+	position: relative;
+	margin:60px auto;
+	width:80%;
+/*	border:1px solid red;*/
+	background-color:rgb(233,233,233);
+	text-align: center;
+}
+
+.main-signup-ul{
+	list-style: none;
+/*	width:100%;*/
+/*	border:1px solid blue;*/
+	border:1px solid rgb(205,197,197);
+	text-align: center;
+	width:80%;
+	margin:0 auto;
+	background: rgb(248,246,242);
+	border-radius:10px;
+}
+
+
+.main-signup-ul li{
+/*	background-color:rgb(248,246,242);*/
+	width:100%;
+	position: relative;
+}
+.fill-data li{
+	margin:40px 0;
+}
+
+.fill-data li label{
+	width:100px;
+}
+
+.fill-data li input{
+	width:400px;
+	height:40px;
+	border-radius:5px;
+	border:1px solid rgb(225,225,225);
+}
+
+.fill-data li input:hover{
+	border:1px solid rgb(63,204,148);
+	cursor: pointer;
+	-webkit-transition-property: border;
+	-o-transition-property:border;
+	transition-property:border;
+	
+	-webkit-transition-duration: 1s;
+	-o-transition-duration: 1s;
+	transition-duration: 1s;
+	box-shadow: 0 0 2px 2px rgb(63,204,148);
+	
+}
+
+.fill-data li input:focus{
+	cursor:text;
+}
+
+.child-activity-item{
+	margin:5px 0;
+}
+
+.choose{
+	text-align: center;
+}
+
+.choose button{
+	width:100px;
+	background:-webkit-gradient(linear,left top,right bottom,from(rgb(31,199,253)),to(rgb(86,239,244)));
+/*	border:none;*/
+	box-shadow: 0px 0px 2px 2px rgb(21,124,127); 
+	border:none;
+}
+.choose button:hover{
+	box-shadow: 0px 0px 2px 2px rgb(48,230,236);  
+	background-color:black;
+	
+}
+.choose button:focus{
+	-webkit-transition-property: background;
+	-o-transition-property:background;
+	transition-property:background;
+	
+	-webkit-transition-duration: 0.1s;
+	-o-transition-duration: 0.1s;
+	transition-duration: 0.1s;
+	
+	-webkit-transition-delay: 0.1s;
+	-o-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+	
+	background:rgb(15,146,151);
+}
+
+.choose-child-activity{
+	width:80%;
+	margin: 0 auto 10px;
+	border:1px solid rgb(205,197,197);
+	border-radius:5px;
+}

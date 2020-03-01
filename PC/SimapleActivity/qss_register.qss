@@ -1,0 +1,33 @@
+/*#widgetInner{
+    background-color:rgb(250,250,250);
+}*/
+
+#widget_register_nav{
+    background-color:rgb(62,188,125);
+}
+
+#stackedWidget,#widget_register_nav{
+    background:transparent;
+}
+QLineEdit{
+    background:rgba(255,255,255,0.3);
+    color:black;
+    border:none;
+    border-radius:5px;
+
+}
+
+QPushButton{
+    border:none;
+    background:rgb(28,196,252);
+    border-radius:5px;
+    color:white;
+}
+
+QPushButton:hover{
+    background:rgb(33,148,248);
+}
+
+QDialog::QPushButton{
+    border:1px solid red;
+}

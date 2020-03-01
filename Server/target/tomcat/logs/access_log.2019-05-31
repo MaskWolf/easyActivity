@@ -1,0 +1,4 @@
+192.168.1.187 - - [31/May/2019:09:33:50 +0800] "POST /test/user/register HTTP/1.1" 200 301 http-bio-8080-exec-1 817
+192.168.1.187 - - [31/May/2019:09:42:08 +0800] "POST /test/user/login HTTP/1.1" 200 108 http-bio-8080-exec-3 79
+192.168.1.187 - - [31/May/2019:09:42:15 +0800] "POST /test/user/login HTTP/1.1" 200 297 http-bio-8080-exec-4 58
+192.168.1.187 - - [31/May/2019:09:42:16 +0800] "GET /test/images/1.jpg HTTP/1.1" 200 50736 http-bio-8080-exec-6 30

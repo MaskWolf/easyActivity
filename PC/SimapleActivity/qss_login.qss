@@ -1,0 +1,109 @@
+#LoginInner{
+    /*background-color:rgb(62,188,125);*/
+}
+
+#LoginContent{
+    background:transparent;
+}
+
+#label_double_code{
+
+}
+
+#lineEdit_password,#comboBox_id{
+    border:none;
+    background:rgba(255,255,255,0.1);
+    border-radius:5px;
+}
+
+#widgetId,#widgetPwd{
+    border-bottom:1px solid rgb(184,186,188);
+}
+
+/*按钮的美化*/
+QPushButton{
+    background-color:rgb(28,196,252);
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+
+QPushButton:hover{
+    background-color:rgb(33,148,248);
+
+}
+
+#toolButton_min{
+    color:white;
+    background:transparent;
+}
+
+#toolButton_min:hover{
+    color:rgb(28,196,252);
+
+}
+
+#toolButton_close{
+    color:white;
+    background:transparent;
+
+}
+
+#toolButton_close:hover{
+    color:red;
+
+}
+
+#toolButton_set{
+    background:transparent;
+
+}
+
+/*将app名字换为白色*/
+#label_head{
+    color:white;
+}
+
+#stackedWidgetLeft,#widgetRight{
+    background:transparent;
+}
+
+#LoginContent{
+    border-top:1px solid white;
+
+}
+
+#lineEdit_url{
+    border:none;
+    border-radius:5px;
+    background-color:rgba(255,255,255,0.3);
+    color:black;
+}
+
+
+QComboBox::drop-down{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+    subcontrol-position: bottom right;
+    width:15px;
+}
+
+QComboBox::drop-down:on{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vxt.png");
+}
+
+QComboBox::drop-down:off{
+    image:url(":/Login/C:/Users/ASUS/Pictures/Login/vsp_s.png");
+}
+
+QComboBox QAbstractItemView::item {
+    height: 32px;
+    border:none;
+}
+
+QListView::item {
+    background-color: rgba(255,25,255,0.2);
+}
+
+QListView::item:hover {
+    background: #BDD7FD;
+}

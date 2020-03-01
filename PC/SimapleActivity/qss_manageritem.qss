@@ -1,0 +1,12 @@
+/*按钮的美化*/
+QPushButton{
+    background-color:rgb(28,196,252);
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+
+QPushButton:hover{
+    background-color:rgb(33,148,248);
+
+}

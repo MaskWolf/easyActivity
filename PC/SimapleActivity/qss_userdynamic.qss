@@ -1,0 +1,26 @@
+#widgetInner{
+    background-color:rgb(248,246,242);
+}
+
+/*将头像设置为圆形*/
+#label_head{
+    border-radius:20px;
+}
+
+/*评论按钮*/
+#pushButton_write_comment{
+    border:none;
+    background-color:rgb(248,246,242);
+}
+
+/*点赞按钮*/
+#pushButton_praise{
+    border:none;
+    background-color:rgb(248,246,242);
+    border-right:1px solid rgb(234,233,177);
+}
+
+#widget_head{
+    border-bottom:1px solid black;
+
+}
