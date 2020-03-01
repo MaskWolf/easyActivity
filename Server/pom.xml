@@ -67,7 +67,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.2.3</version>
+      <version>2.9.10.1</version>
     </dependency>
 
     <!--    mysql驱动-->
@@ -84,28 +84,28 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>4.2.4.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>4.2.4.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>4.2.4.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
-      <version>4.2.4.RELEASE</version>
+      <version>4.3.19.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
